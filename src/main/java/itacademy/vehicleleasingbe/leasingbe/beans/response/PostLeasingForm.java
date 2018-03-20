@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class PostLeasingForm extends Response {
 
-    private long id;
+    private String id;
     private String customerType;
     private String assetType;
     private String brand;
@@ -24,7 +24,7 @@ public class PostLeasingForm extends Response {
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
-        this.id = leasingForm.getId();
+
         this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
         this.brand = leasingForm.getBrand();
