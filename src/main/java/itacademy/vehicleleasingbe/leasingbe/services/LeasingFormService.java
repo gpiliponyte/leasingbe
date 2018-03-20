@@ -26,7 +26,6 @@ public class LeasingFormService {
         LeasingForm newLeasingForm = new LeasingForm();
 
 
-        newLeasingForm.setId(leasingForm.getId());
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
         newLeasingForm.setBrand(leasingForm.getBrand());
