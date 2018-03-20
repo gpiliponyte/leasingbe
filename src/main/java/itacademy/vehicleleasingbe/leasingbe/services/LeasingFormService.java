@@ -3,7 +3,6 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class LeasingFormService {
         LeasingForm newLeasingForm = new LeasingForm();
 
 
-
+        newLeasingForm.setId(leasingForm.getId());
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
         newLeasingForm.setBrand(leasingForm.getBrand());
