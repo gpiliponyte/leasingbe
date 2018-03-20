@@ -28,7 +28,7 @@ public class LeasingFormService {
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
-        newLeasingForm.setBrand(leasingForm.getBrand());
+        newLeasingForm.setMake(leasingForm.getMake());
         newLeasingForm.setModel(leasingForm.getModel());
         newLeasingForm.setYear(leasingForm.getYear());
         newLeasingForm.setEnginePower(leasingForm.getEnginePower());
@@ -52,7 +52,7 @@ public class LeasingFormService {
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
-        leasingForm.setBrand(updateLeasingFormInfo.getBrand());
+        leasingForm.setMake(updateLeasingFormInfo.getMake());
         leasingForm.setModel(updateLeasingFormInfo.getModel());
         leasingForm.setYear(updateLeasingFormInfo.getYear());
         leasingForm.setEnginePower(updateLeasingFormInfo.getEnginePower());

@@ -1,7 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.response;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import org.bson.types.ObjectId;
 
 import java.math.BigDecimal;
 
@@ -28,7 +27,7 @@ public class PostLeasingForm extends Response {
         this.customerType = leasingForm.getCustomerType();
         this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
-        this.brand = leasingForm.getBrand();
+        this.brand = leasingForm.getMake();
         this.model = leasingForm.getModel();
         this.year = leasingForm.getYear();
         this.enginePower = leasingForm.getEnginePower();

@@ -16,7 +16,7 @@ public class LeasingForm {
     @NotNull
     private String assetType;
     @NotNull
-    private String brand;
+    private String make;
     @NotNull
     private String model;
     @NotNull
@@ -62,12 +62,12 @@ public class LeasingForm {
         this.assetType = assetType;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getMake() {
+        return make;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setMake(String make) {
+        this.make = make;
     }
 
     public String getModel() {
