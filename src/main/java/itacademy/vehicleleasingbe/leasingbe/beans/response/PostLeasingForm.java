@@ -13,7 +13,7 @@ public class PostLeasingForm extends Response {
     private String brand;
     private String model;
     private BigDecimal year;
-    private BigDecimal enginerPower;
+    private BigDecimal enginePower;
     private BigDecimal assetPrice;
     private BigDecimal advancePaymentPercentage;
     private BigDecimal advancePaymentAmount;
@@ -24,13 +24,14 @@ public class PostLeasingForm extends Response {
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
-
+        this.id = leasingForm.getId();
+        this.customerType = leasingForm.getCustomerType();
         this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
         this.brand = leasingForm.getBrand();
         this.model = leasingForm.getModel();
         this.year = leasingForm.getYear();
-        this.enginerPower = leasingForm.getEnginerPower();
+        this.enginePower = leasingForm.getEnginePower();
         this.assetPrice = leasingForm.getAssetPrice();
         this.advancePaymentPercentage = leasingForm.getAdvancePaymentPercentage();
         this.advancePaymentAmount = leasingForm.getAdvancePaymentAmount();
@@ -88,12 +89,12 @@ public class PostLeasingForm extends Response {
         this.year = year;
     }
 
-    public BigDecimal getEnginerPower() {
-        return enginerPower;
+    public BigDecimal getEnginePower() {
+        return enginePower;
     }
 
-    public void setEnginerPower(BigDecimal enginerPower) {
-        this.enginerPower = enginerPower;
+    public void setEnginePower(BigDecimal enginerPower) {
+        this.enginePower = enginerPower;
     }
 
     public BigDecimal getAssetPrice() {

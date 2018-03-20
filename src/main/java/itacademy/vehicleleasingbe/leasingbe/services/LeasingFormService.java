@@ -31,9 +31,10 @@ public class LeasingFormService {
         newLeasingForm.setBrand(leasingForm.getBrand());
         newLeasingForm.setModel(leasingForm.getModel());
         newLeasingForm.setYear(leasingForm.getYear());
-        newLeasingForm.setEnginerPower(leasingForm.getEnginerPower());
+        newLeasingForm.setEnginePower(leasingForm.getEnginePower());
         newLeasingForm.setAssetPrice(leasingForm.getAssetPrice());
         newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
+        newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
         newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
         newLeasingForm.setMargin(leasingForm.getMargin());
         newLeasingForm.setContractFee(leasingForm.getContractFee());
@@ -54,7 +55,7 @@ public class LeasingFormService {
         leasingForm.setBrand(updateLeasingFormInfo.getBrand());
         leasingForm.setModel(updateLeasingFormInfo.getModel());
         leasingForm.setYear(updateLeasingFormInfo.getYear());
-        leasingForm.setEnginerPower(updateLeasingFormInfo.getEnginerPower());
+        leasingForm.setEnginePower(updateLeasingFormInfo.getEnginePower());
         leasingForm.setAssetPrice(updateLeasingFormInfo.getAssetPrice());
         leasingForm.setAdvancePaymentPercentage(updateLeasingFormInfo.getAdvancePaymentPercentage());
         leasingForm.setAdvancePaymentAmount(updateLeasingFormInfo.getAdvancePaymentAmount());

@@ -22,7 +22,7 @@ public class LeasingForm {
     @NotNull
     private BigDecimal year;
     @NotNull
-    private BigDecimal enginerPower;
+    private BigDecimal enginePower;
     @NotNull
     private BigDecimal assetPrice;
     @NotNull
@@ -86,12 +86,12 @@ public class LeasingForm {
         this.year = year;
     }
 
-    public BigDecimal getEnginerPower() {
-        return enginerPower;
+    public BigDecimal getEnginePower() {
+        return enginePower;
     }
 
-    public void setEnginerPower(BigDecimal enginerPower) {
-        this.enginerPower = enginerPower;
+    public void setEnginePower(BigDecimal enginerPower) {
+        this.enginePower = enginerPower;
     }
 
     public BigDecimal getAssetPrice() {
