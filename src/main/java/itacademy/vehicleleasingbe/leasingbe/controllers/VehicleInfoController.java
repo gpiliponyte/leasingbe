@@ -28,4 +28,5 @@ public class VehicleInfoController {
     public VehicleInfoResponse addPost(@Valid @RequestBody VehicleInfo vehicleInfo) {
         return new VehicleInfoResponse(service.addNewVehicleInfo(vehicleInfo));
     }
+
 }
