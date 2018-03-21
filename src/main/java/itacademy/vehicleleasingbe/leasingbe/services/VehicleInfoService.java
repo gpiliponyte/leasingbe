@@ -36,4 +36,8 @@ public class VehicleInfoService {
 
         return vehicleInfoRepository.save(newVehicleInfo);
     }
+
+    public void deleteVehicle(String id) {
+        vehicleInfoRepository.delete(vehicleInfoRepository.findVehicleInfoById(id));
+    }
 }

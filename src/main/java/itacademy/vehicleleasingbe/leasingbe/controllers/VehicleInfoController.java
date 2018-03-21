@@ -28,4 +28,9 @@ public class VehicleInfoController {
     public VehicleInfoResponse addPost(@Valid @RequestBody VehicleInfo vehicleInfo) {
         return new VehicleInfoResponse(service.addNewVehicleInfo(vehicleInfo));
     }
+
+    @RequestMapping(value = "/deleteVehicle/{id}", method = RequestMethod.DELETE)
+    public void removePost(@PathVariable("id") String id) {
+        service.deleteVehicle(id);
+    }
 }
