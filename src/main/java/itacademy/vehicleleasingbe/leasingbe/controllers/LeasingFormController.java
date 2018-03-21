@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/")
+@CrossOrigin
 public class LeasingFormController {
 
     @Autowired
