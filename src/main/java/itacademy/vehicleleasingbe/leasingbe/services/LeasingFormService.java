@@ -22,7 +22,7 @@ public class LeasingFormService {
                 .collect(Collectors.toList());
     }
 
-    public LeasingForm addNewPost(@Valid LeasingForm leasingForm) {
+    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
         LeasingForm newLeasingForm = new LeasingForm();
 
 
@@ -67,7 +67,7 @@ public class LeasingFormService {
         return leasingFormRepository.save(leasingForm);
     }
 
-    public void deleteBlogPost(String id) {
+    public void deleteLeaseForm(String id) {
         leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));
     }
 
