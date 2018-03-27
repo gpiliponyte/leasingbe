@@ -3,6 +3,7 @@ package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -51,16 +52,12 @@ public class LeasingForm {
     private String postCode;
     @NotNull
     private String country;
-    @NotNull
     //Buisiness info
     private String companyName;
-    @NotNull
     private String companyCode;
     //Personal Info
     private String firstName;
-    @NotNull
     private String lastName;
-    @NotNull
     private String idCode;
 
     public String getId() {
