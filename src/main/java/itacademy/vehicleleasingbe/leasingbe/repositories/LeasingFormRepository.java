@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface LeasingFormRepository extends CrudRepository<LeasingForm, String> {
-    List<LeasingForm> findAll();
 
+    List<LeasingForm> findAll();
     LeasingForm findLeasingFormById(String id);
+
 }
