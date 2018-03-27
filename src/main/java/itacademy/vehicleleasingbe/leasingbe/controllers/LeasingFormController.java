@@ -19,13 +19,13 @@ public class LeasingFormController {
     private LeasingFormService service;
 
     @RequestMapping(value = "/")
-    public List<PostLeasingForm> getAllPosts() {
+    public List<PostLeasingForm> getAllLeases() {
         return service.getAllLeases();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/addLease", method = RequestMethod.POST)
     public PostLeasingForm addPost(@Valid @RequestBody LeasingForm leasingForm) {
-        return new PostLeasingForm(service.addNewPost(leasingForm));
+        return new PostLeasingForm(service.addNewLease(leasingForm));
     }
 
 
@@ -35,9 +35,9 @@ public class LeasingFormController {
     }
 
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
     public void removePost(@PathVariable("id") String id) {
-        service.deleteBlogPost(id);
+        service.deleteLeaseForm(id);
     }
 
 }

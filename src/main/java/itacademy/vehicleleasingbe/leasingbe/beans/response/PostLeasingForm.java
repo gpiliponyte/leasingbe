@@ -19,7 +19,18 @@ public class PostLeasingForm extends Response {
     private BigDecimal leasePeriod;
     private BigDecimal margin;
     private BigDecimal contractFee;
-    private BigDecimal paymentDate;
+    private String paymentDate;
+    private String companyName;
+    private String companyCode;
+    private String email;
+    private String phoneNumber;
+    private String street;
+    private String city;
+    private String postCode;
+    private String country;
+    private String firstName;
+    private String lastName;
+    private String personalCode;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -27,7 +38,7 @@ public class PostLeasingForm extends Response {
         this.customerType = leasingForm.getCustomerType();
         this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
-        this.brand = leasingForm.getMake();
+        this.brand = leasingForm.getBrand();
         this.model = leasingForm.getModel();
         this.year = leasingForm.getYear();
         this.enginePower = leasingForm.getEnginePower();
@@ -38,6 +49,23 @@ public class PostLeasingForm extends Response {
         this.margin = leasingForm.getMargin();
         this.contractFee = leasingForm.getContractFee();
         this.paymentDate = leasingForm.getPaymentDate();
+        this.companyName = leasingForm.getCompanyName();
+        this.companyCode = leasingForm.getCompanyCode();
+        this.email = leasingForm.getEmail();
+        this.phoneNumber = leasingForm.getPhoneNumber();
+        this.street = leasingForm.getStreet();
+        this.city = leasingForm.getCity();
+        this.postCode = leasingForm.getPostCode();
+        this.country = leasingForm.getCountry();
+        this.firstName = leasingForm.getFirstName();
+        this.lastName  = leasingForm.getLastName();
+        this.personalCode = leasingForm.getPersonalCode();
+        this.phoneNumber = leasingForm.getPhoneNumber();
+        this.street = leasingForm.getStreet();
+        this.city = leasingForm.getCity();
+        this.postCode = leasingForm.getPostCode();
+        this.country = leasingForm.getCountry();
+
     }
 
     public String getId() {
@@ -144,11 +172,99 @@ public class PostLeasingForm extends Response {
         this.contractFee = contractFee;
     }
 
-    public BigDecimal getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(BigDecimal paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPersonalCode() {
+        return personalCode;
+    }
+
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
     }
 }
