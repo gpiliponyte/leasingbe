@@ -16,7 +16,7 @@ public class LeasingForm {
     @NotNull
     private String assetType;
     @NotNull
-    private String make;
+    private String brand;
     @NotNull
     private String model;
     @NotNull
@@ -36,7 +36,29 @@ public class LeasingForm {
     @NotNull
     private BigDecimal contractFee;
     @NotNull
-    private BigDecimal paymentDate;
+    private String paymentDate;
+    @NotNull
+    private String companyName;
+    @NotNull
+    private String companyCode;
+    @NotNull
+    private String email;
+    @NotNull
+    private String phoneNumber;
+    @NotNull
+    private String street;
+    @NotNull
+    private String city;
+    @NotNull
+    private String postCode;
+    @NotNull
+    private String country;
+    @NotNull
+    private String firstName;
+    @NotNull
+    private String lastName;
+    @NotNull
+    private String idCode;
 
     public String getId() {
         return id;
@@ -62,12 +84,12 @@ public class LeasingForm {
         this.assetType = assetType;
     }
 
-    public String getMake() {
-        return make;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMake(String make) {
-        this.make = make;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getModel() {
@@ -142,11 +164,99 @@ public class LeasingForm {
         this.contractFee = contractFee;
     }
 
-    public BigDecimal getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(BigDecimal paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getIdCode() {
+        return idCode;
+    }
+
+    public void setIdCode(String idCode) {
+        this.idCode = idCode;
     }
 }

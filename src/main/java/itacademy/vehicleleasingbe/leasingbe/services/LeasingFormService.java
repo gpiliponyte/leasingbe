@@ -28,7 +28,7 @@ public class LeasingFormService {
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
-        newLeasingForm.setMake(leasingForm.getMake());
+        newLeasingForm.setBrand(leasingForm.getBrand());
         newLeasingForm.setModel(leasingForm.getModel());
         newLeasingForm.setYear(leasingForm.getYear());
         newLeasingForm.setEnginePower(leasingForm.getEnginePower());
@@ -39,6 +39,20 @@ public class LeasingFormService {
         newLeasingForm.setMargin(leasingForm.getMargin());
         newLeasingForm.setContractFee(leasingForm.getContractFee());
         newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
+
+        newLeasingForm.setCompanyName(leasingForm.getCompanyName());
+        newLeasingForm.setCompanyCode(leasingForm.getCompanyCode());
+        newLeasingForm.setEmail(leasingForm.getEmail());
+        newLeasingForm.setPhoneNumber(leasingForm.getPhoneNumber());
+
+        newLeasingForm.setFirstName(leasingForm.getFirstName());
+        newLeasingForm.setLastName(leasingForm.getLastName());
+        newLeasingForm.setIdCode(leasingForm.getIdCode());
+
+        newLeasingForm.setStreet(leasingForm.getStreet());
+        newLeasingForm.setCity(leasingForm.getCity());
+        newLeasingForm.setPostCode(leasingForm.getPostCode());
+        newLeasingForm.setCountry(leasingForm.getCountry());
 
         return leasingFormRepository.save(newLeasingForm);
     }
@@ -52,7 +66,7 @@ public class LeasingFormService {
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
-        leasingForm.setMake(updateLeasingFormInfo.getMake());
+        leasingForm.setBrand(updateLeasingFormInfo.getBrand());
         leasingForm.setModel(updateLeasingFormInfo.getModel());
         leasingForm.setYear(updateLeasingFormInfo.getYear());
         leasingForm.setEnginePower(updateLeasingFormInfo.getEnginePower());
@@ -63,6 +77,21 @@ public class LeasingFormService {
         leasingForm.setMargin(updateLeasingFormInfo.getMargin());
         leasingForm.setContractFee(updateLeasingFormInfo.getContractFee());
         leasingForm.setPaymentDate(updateLeasingFormInfo.getPaymentDate());
+
+        leasingForm.setCompanyName(updateLeasingFormInfo.getCompanyName());
+        leasingForm.setCompanyCode(updateLeasingFormInfo.getCompanyCode());
+        leasingForm.setEmail(updateLeasingFormInfo.getEmail());
+        leasingForm.setPhoneNumber(updateLeasingFormInfo.getPhoneNumber());
+
+        leasingForm.setFirstName(updateLeasingFormInfo.getFirstName());
+        leasingForm.setLastName(updateLeasingFormInfo.getLastName());
+        leasingForm.setIdCode(updateLeasingFormInfo.getIdCode());
+        leasingForm.setPhoneNumber(updateLeasingFormInfo.getPhoneNumber());
+
+        leasingForm.setStreet(updateLeasingFormInfo.getStreet());
+        leasingForm.setCountry(updateLeasingFormInfo.getCountry());
+        leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
+        leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
         return leasingFormRepository.save(leasingForm);
     }
