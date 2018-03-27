@@ -30,7 +30,7 @@ public class PostLeasingForm extends Response {
     private String country;
     private String firstName;
     private String lastName;
-    private String idCode;
+    private String personalCode;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -59,7 +59,7 @@ public class PostLeasingForm extends Response {
         this.country = leasingForm.getCountry();
         this.firstName = leasingForm.getFirstName();
         this.lastName  = leasingForm.getLastName();
-        this.idCode = leasingForm.getIdCode();
+        this.personalCode = leasingForm.getPersonalCode();
         this.phoneNumber = leasingForm.getPhoneNumber();
         this.street = leasingForm.getStreet();
         this.city = leasingForm.getCity();
@@ -260,11 +260,11 @@ public class PostLeasingForm extends Response {
         this.lastName = lastName;
     }
 
-    public String getIdCode() {
-        return idCode;
+    public String getPersonalCode() {
+        return personalCode;
     }
 
-    public void setIdCode(String idCode) {
-        this.idCode = idCode;
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
     }
 }

@@ -58,7 +58,7 @@ public class LeasingForm {
     //Personal Info
     private String firstName;
     private String lastName;
-    private String idCode;
+    private String personalCode;
 
     public String getId() {
         return id;
@@ -252,11 +252,11 @@ public class LeasingForm {
         this.lastName = lastName;
     }
 
-    public String getIdCode() {
-        return idCode;
+    public String getPersonalCode() {
+        return personalCode;
     }
 
-    public void setIdCode(String idCode) {
-        this.idCode = idCode;
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
     }
 }

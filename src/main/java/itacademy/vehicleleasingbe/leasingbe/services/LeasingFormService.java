@@ -47,7 +47,7 @@ public class LeasingFormService {
 
         newLeasingForm.setFirstName(leasingForm.getFirstName());
         newLeasingForm.setLastName(leasingForm.getLastName());
-        newLeasingForm.setIdCode(leasingForm.getIdCode());
+        newLeasingForm.setPersonalCode(leasingForm.getPersonalCode());
 
         newLeasingForm.setStreet(leasingForm.getStreet());
         newLeasingForm.setCity(leasingForm.getCity());
@@ -85,7 +85,7 @@ public class LeasingFormService {
 
         leasingForm.setFirstName(updateLeasingFormInfo.getFirstName());
         leasingForm.setLastName(updateLeasingFormInfo.getLastName());
-        leasingForm.setIdCode(updateLeasingFormInfo.getIdCode());
+        leasingForm.setPersonalCode(updateLeasingFormInfo.getPersonalCode());
         leasingForm.setPhoneNumber(updateLeasingFormInfo.getPhoneNumber());
 
         leasingForm.setStreet(updateLeasingFormInfo.getStreet());
