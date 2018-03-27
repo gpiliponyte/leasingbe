@@ -38,9 +38,7 @@ public class LeasingForm {
     @NotNull
     private String paymentDate;
     @NotNull
-    private String companyName;
-    @NotNull
-    private String companyCode;
+    //Information bit
     @NotNull
     private String email;
     @NotNull
@@ -54,6 +52,11 @@ public class LeasingForm {
     @NotNull
     private String country;
     @NotNull
+    //Buisiness info
+    private String companyName;
+    @NotNull
+    private String companyCode;
+    //Personal Info
     private String firstName;
     @NotNull
     private String lastName;
