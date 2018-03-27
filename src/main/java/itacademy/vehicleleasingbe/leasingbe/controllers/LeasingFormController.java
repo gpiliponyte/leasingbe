@@ -1,6 +1,7 @@
 package itacademy.vehicleleasingbe.leasingbe.controllers;
 
 
+import itacademy.vehicleleasingbe.leasingbe.services.CustomException;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.services.LeasingFormService;
@@ -24,7 +25,7 @@ public class LeasingFormController {
     }
 
     @RequestMapping(value = "/addLease", method = RequestMethod.POST)
-    public PostLeasingForm addPost(@Valid @RequestBody LeasingForm leasingForm) {
+    public PostLeasingForm addPost(@Valid @RequestBody LeasingForm leasingForm) throws CustomException {
         return new PostLeasingForm(service.addNewLease(leasingForm));
     }
 

@@ -22,7 +22,7 @@ public class LeasingFormService {
                 .collect(Collectors.toList());
     }
 
-    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
+    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws CustomException {
         LeasingForm newLeasingForm = new LeasingForm();
 
 
@@ -54,7 +54,9 @@ public class LeasingFormService {
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
 
-        return leasingFormRepository.save(newLeasingForm);
+
+        throw new CustomException("Erroras geras");
+        //return leasingFormRepository.save(newLeasingForm);
     }
 
     public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
@@ -93,7 +95,7 @@ public class LeasingFormService {
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
-        return leasingFormRepository.save(leasingForm);
+        return leasingFormRepository.save(leasingForm);//http code for validation
     }
 
     public void deleteLeaseForm(String id) {
