@@ -18,18 +18,19 @@ public class UniqueIdGeneratorService {
 
 
     public Boolean checkIfUniqueIdIsAlreadyUsed(String randomString){
-
-        LeasingFormService leasingFormService= new LeasingFormService();
-
-        List<PostLeasingForm> leasingForms=leasingFormService.getAllLeases();
-
-        for (PostLeasingForm postLeasingForm:leasingForms) {
-            if (postLeasingForm.getUniqueId() == randomString)
-            {
-                return false;
-            }
-        }
+//
+//          LeasingFormService leasingFormService = new LeasingFormService();
+//
+////        List<PostLeasingForm> leasingForms=  leasingFormService.getAllLeases();
+////
+////        for (PostLeasingForm postLeasingForm: leasingForms) {
+////            if (postLeasingForm.getUniqueId() == randomString)
+////            {
+////                return false;
+////            }
+////        }
         return true;
+
     }
 
     public String generateUserId(LeasingForm leasingForm) {
@@ -38,7 +39,7 @@ public class UniqueIdGeneratorService {
         String firstSurnameLetter = leasingForm.getLastName().substring(0, 1);
         String birthDayLastTwoDigits = leasingForm.getPersonalCode().substring(1, 3);
 
-        String possibleChars = "abcdefghjklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String possibleChars = "abcdefghjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -55,8 +56,24 @@ public class UniqueIdGeneratorService {
         String userId = firstNameLetter + firstSurnameLetter + birthDayLastTwoDigits + generatedString;
 
 
+
+
+//        while(checkIfUniqueIdIsAlreadyUsed(userId)){
+//           if (!checkIfUniqueIdIsAlreadyUsed(userId)) {
+//               generateUserId(leasingForm);
+//               return userId;
+//           } else {
+//               return userId;
+//           }
+//        }
         System.out.println(userId);
 
+
+
+        if(!checkIfUniqueIdIsAlreadyUsed(userId)){
+            generateUserId(leasingForm);
+            return userId;
+        } else
         return userId;
     }
 }

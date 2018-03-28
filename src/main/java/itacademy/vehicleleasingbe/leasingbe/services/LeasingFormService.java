@@ -58,6 +58,7 @@ public class LeasingFormService{
         newLeasingForm.setCountry(leasingForm.getCountry());
 
         newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+        newLeasingForm.setApplicationStatus(leasingForm.getApplicationStatus());
 
         return leasingFormRepository.save(newLeasingForm);
     }
@@ -100,6 +101,8 @@ public class LeasingFormService{
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+
+        leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
 
         return leasingFormRepository.save(leasingForm);
     }
