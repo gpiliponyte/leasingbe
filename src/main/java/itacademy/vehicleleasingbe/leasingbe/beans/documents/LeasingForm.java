@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 @Document(collection = "posts")
 public class LeasingForm {
 
-    private UniqueIdGeneratorService uniqueIdGeneratorService;
-
-
 
     @Id
     private String id;
@@ -71,7 +68,7 @@ public class LeasingForm {
     }
 
     public void setId(String id) {
-        this.id = uniqueIdGeneratorService.generateUserId();
+        this.id = id;
     }
 
     public String getCustomerType() {

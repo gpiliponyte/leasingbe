@@ -29,8 +29,7 @@ public class LeasingFormService{
 
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
         LeasingForm newLeasingForm = new LeasingForm();
-        LeasingForm savedLeasingForm = new LeasingForm();
-
+        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
@@ -59,11 +58,9 @@ public class LeasingFormService{
         newLeasingForm.setCity(leasingForm.getCity());
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
+        newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
 
-        savedLeasingForm = leasingFormRepository.save(newLeasingForm);
-        savedLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId());
-
-        return savedLeasingForm;
+        return leasingFormRepository.save(newLeasingForm);
     }
 
     public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
@@ -72,6 +69,7 @@ public class LeasingFormService{
         // 2. update blog post
         // 3. save blog post
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
+        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
@@ -102,7 +100,9 @@ public class LeasingFormService{
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
-        return leasingForm;
+        leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+
+        return leasingFormRepository.save(leasingForm);
     }
 
     public void deleteLeaseForm(String id) {
