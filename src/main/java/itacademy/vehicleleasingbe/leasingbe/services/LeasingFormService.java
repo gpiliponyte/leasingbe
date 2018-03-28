@@ -1,9 +1,11 @@
 package itacademy.vehicleleasingbe.leasingbe.services;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -11,10 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class LeasingFormService {
+public class LeasingFormService{
 
     @Autowired
     private LeasingFormRepository leasingFormRepository;
+    private UniqueIdGeneratorService uniqueIdGeneratorService;
+
+
 
     public List<PostLeasingForm> getAllLeases() {
         return leasingFormRepository.findAll().stream()
@@ -24,6 +29,7 @@ public class LeasingFormService {
 
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
         LeasingForm newLeasingForm = new LeasingForm();
+        LeasingForm savedLeasingForm = new LeasingForm();
 
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
@@ -54,7 +60,10 @@ public class LeasingFormService {
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
 
-        return leasingFormRepository.save(newLeasingForm);
+        savedLeasingForm = leasingFormRepository.save(newLeasingForm);
+        savedLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId());
+
+        return savedLeasingForm;
     }
 
     public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
@@ -93,7 +102,7 @@ public class LeasingFormService {
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
-        return leasingFormRepository.save(leasingForm);
+        return leasingForm;
     }
 
     public void deleteLeaseForm(String id) {

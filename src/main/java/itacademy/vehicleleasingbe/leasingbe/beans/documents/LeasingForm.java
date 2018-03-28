@@ -1,6 +1,7 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 
+import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,6 +10,10 @@ import java.math.BigDecimal;
 
 @Document(collection = "posts")
 public class LeasingForm {
+
+    private UniqueIdGeneratorService uniqueIdGeneratorService;
+
+
 
     @Id
     private String id;
@@ -59,13 +64,14 @@ public class LeasingForm {
     private String firstName;
     private String lastName;
     private String personalCode;
+    private String uniqueId;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = uniqueIdGeneratorService.generateUserId();
     }
 
     public String getCustomerType() {
@@ -258,5 +264,13 @@ public class LeasingForm {
 
     public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 }

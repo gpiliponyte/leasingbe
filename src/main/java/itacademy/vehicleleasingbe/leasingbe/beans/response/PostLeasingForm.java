@@ -31,6 +31,7 @@ public class PostLeasingForm extends Response {
     private String firstName;
     private String lastName;
     private String personalCode;
+    private String uniqueId;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -65,6 +66,7 @@ public class PostLeasingForm extends Response {
         this.city = leasingForm.getCity();
         this.postCode = leasingForm.getPostCode();
         this.country = leasingForm.getCountry();
+        this.uniqueId = leasingForm.getUniqueId();
 
     }
 
@@ -266,5 +268,13 @@ public class PostLeasingForm extends Response {
 
     public void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 }
