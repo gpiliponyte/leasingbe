@@ -24,6 +24,7 @@ public class VehicleInfoService {
                 .collect(Collectors.toList());
     }
 
+
     public VehicleInfo addNewVehicleInfo(@Valid VehicleInfo vehicleInfo) {
         VehicleInfo newVehicleInfo = new VehicleInfo();
 
@@ -40,4 +41,6 @@ public class VehicleInfoService {
     public void deleteVehicle(String id) {
         vehicleInfoRepository.delete(vehicleInfoRepository.findVehicleInfoById(id));
     }
+
+
 }

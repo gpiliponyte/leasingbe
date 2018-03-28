@@ -1,7 +1,7 @@
 package itacademy.vehicleleasingbe.leasingbe.controllers;
 
 
-import itacademy.vehicleleasingbe.leasingbe.services.CustomException;
+import itacademy.vehicleleasingbe.leasingbe.Validations.CustomException;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.services.LeasingFormService;

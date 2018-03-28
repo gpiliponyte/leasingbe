@@ -1,7 +1,10 @@
 package itacademy.vehicleleasingbe.leasingbe.services;
 
+import itacademy.vehicleleasingbe.leasingbe.Validations.CustomException;
+import itacademy.vehicleleasingbe.leasingbe.Validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class LeasingFormService {
 
     @Autowired
     private LeasingFormRepository leasingFormRepository;
+    @Autowired
+    private VehicleInfoService vehicleInfoService;
 
     public List<PostLeasingForm> getAllLeases() {
         return leasingFormRepository.findAll().stream()
@@ -25,38 +30,46 @@ public class LeasingFormService {
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws CustomException {
         LeasingForm newLeasingForm = new LeasingForm();
 
+        FormValidation formValidation = new FormValidation();
+        List<VehicleInfoResponse> vehicleInfos = vehicleInfoService.getAllVehicleInfo();
 
-        newLeasingForm.setCustomerType(leasingForm.getCustomerType());
-        newLeasingForm.setAssetType(leasingForm.getAssetType());
-        newLeasingForm.setBrand(leasingForm.getBrand());
-        newLeasingForm.setModel(leasingForm.getModel());
-        newLeasingForm.setYear(leasingForm.getYear());
-        newLeasingForm.setEnginePower(leasingForm.getEnginePower());
-        newLeasingForm.setAssetPrice(leasingForm.getAssetPrice());
-        newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
-        newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
-        newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
-        newLeasingForm.setMargin(leasingForm.getMargin());
-        newLeasingForm.setContractFee(leasingForm.getContractFee());
-        newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
-
-        newLeasingForm.setCompanyName(leasingForm.getCompanyName());
-        newLeasingForm.setCompanyCode(leasingForm.getCompanyCode());
-        newLeasingForm.setEmail(leasingForm.getEmail());
-        newLeasingForm.setPhoneNumber(leasingForm.getPhoneNumber());
-
-        newLeasingForm.setFirstName(leasingForm.getFirstName());
-        newLeasingForm.setLastName(leasingForm.getLastName());
-        newLeasingForm.setPersonalCode(leasingForm.getPersonalCode());
-
-        newLeasingForm.setStreet(leasingForm.getStreet());
-        newLeasingForm.setCity(leasingForm.getCity());
-        newLeasingForm.setPostCode(leasingForm.getPostCode());
-        newLeasingForm.setCountry(leasingForm.getCountry());
+        CustomException customException = formValidation.executeFormValidation(leasingForm, vehicleInfos);
+        if (customException != null) {
+            throw customException;
+        } else {
 
 
-        throw new CustomException("Erroras geras");
-        //return leasingFormRepository.save(newLeasingForm);
+            newLeasingForm.setCustomerType(leasingForm.getCustomerType());
+            newLeasingForm.setAssetType(leasingForm.getAssetType());
+            newLeasingForm.setBrand(leasingForm.getBrand());
+            newLeasingForm.setModel(leasingForm.getModel());
+            newLeasingForm.setYear(leasingForm.getYear());
+            newLeasingForm.setEnginePower(leasingForm.getEnginePower());
+            newLeasingForm.setAssetPrice(leasingForm.getAssetPrice());
+            newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
+            newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
+            newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
+            newLeasingForm.setMargin(leasingForm.getMargin());
+            newLeasingForm.setContractFee(leasingForm.getContractFee());
+            newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
+
+            newLeasingForm.setCompanyName(leasingForm.getCompanyName());
+            newLeasingForm.setCompanyCode(leasingForm.getCompanyCode());
+            newLeasingForm.setEmail(leasingForm.getEmail());
+            newLeasingForm.setPhoneNumber(leasingForm.getPhoneNumber());
+
+            newLeasingForm.setFirstName(leasingForm.getFirstName());
+            newLeasingForm.setLastName(leasingForm.getLastName());
+            newLeasingForm.setPersonalCode(leasingForm.getPersonalCode());
+
+            newLeasingForm.setStreet(leasingForm.getStreet());
+            newLeasingForm.setCity(leasingForm.getCity());
+            newLeasingForm.setPostCode(leasingForm.getPostCode());
+            newLeasingForm.setCountry(leasingForm.getCountry());
+
+
+            return leasingFormRepository.save(newLeasingForm);
+        }
     }
 
     public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
@@ -95,7 +108,7 @@ public class LeasingFormService {
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
-        return leasingFormRepository.save(leasingForm);//http code for validation
+        return leasingFormRepository.save(leasingForm);
     }
 
     public void deleteLeaseForm(String id) {

@@ -1,9 +1,11 @@
-package itacademy.vehicleleasingbe.leasingbe.services;
+package itacademy.vehicleleasingbe.leasingbe.Validations;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.BAD_REQUEST)  // 404
+import java.util.List;
+
+@ResponseStatus(value = HttpStatus.BAD_REQUEST)  // 400
 public class CustomException extends RuntimeException {
     public CustomException(String message) {
         super(message);
