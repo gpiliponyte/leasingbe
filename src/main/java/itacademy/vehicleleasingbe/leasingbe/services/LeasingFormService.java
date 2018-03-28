@@ -17,11 +17,6 @@ public class LeasingFormService{
 
     @Autowired
     private LeasingFormRepository leasingFormRepository;
-    private UniqueIdGeneratorService uniqueIdGeneratorService;
-
-
-
-
 
 
     public List<PostLeasingForm> getAllLeases() {
@@ -61,6 +56,7 @@ public class LeasingFormService{
         newLeasingForm.setCity(leasingForm.getCity());
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
+
         newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
 
         return leasingFormRepository.save(newLeasingForm);
