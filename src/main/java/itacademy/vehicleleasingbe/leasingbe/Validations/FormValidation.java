@@ -1,12 +1,9 @@
 package itacademy.vehicleleasingbe.leasingbe.Validations;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.beans.documents.VehicleInfo;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
-import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.List;
@@ -48,50 +45,53 @@ public class FormValidation {
         customException = this.validateMargin(leasingForm.getMargin());
         if (customException != null)
             return customException;
-        customException = this.validateContractFee(leasingForm.getAssetPrice(),leasingForm.getContractFee());
+        customException = this.validateContractFee(leasingForm.getAssetPrice(), leasingForm.getContractFee());
         if (customException != null)
             return customException;
         customException = this.validatePaymentDate(leasingForm.getPaymentDate());
         if (customException != null)
             return customException;
         //Personal info
-        customException = this.validatePersonalInformationType();
-        if (customException != null)
-            return customException;
-        //private
-        customException = this.validateFirstName();
-        if (customException != null)
-            return customException;
-        customException = this.validateLastName();
-        if (customException != null)
-            return customException;
-        customException = this.validatePersonalCode();
-        if (customException != null)
-            return customException;
-        //business
-        customException = this.validateCompanyName();
-        if (customException != null)
-            return customException;
-        customException = this.validateCompanyCode();
-        if (customException != null)
-            return customException;
+        int formType = this.validatePersonalInformationType(leasingForm);//0 - private 1 - business -1 - both
+        if (formType == 0) {
+            //private
+            customException = this.validateFirstName(leasingForm.getFirstName());
+            if (customException != null)
+                return customException;
+            customException = this.validateLastName(leasingForm.getLastName());
+            if (customException != null)
+                return customException;
+            customException = this.validatePersonalCode(leasingForm.getPersonalCode());
+            if (customException != null)
+                return customException;
+        } else if (formType == 1) {
+            //business
+            customException = this.validateCompanyName(leasingForm.getCompanyName());
+            if (customException != null)
+                return customException;
+            customException = this.validateCompanyCode(leasingForm.getCompanyCode());
+            if (customException != null)
+                return customException;
+        } else {
+            return new CustomException("Both Personal and Business fields filled");
+        }
         //other fields
-        customException = this.validateEmail();
+        customException = this.validateEmail(leasingForm.getEmail());
         if (customException != null)
             return customException;
-        customException = this.validatePhoneNumber();
+        customException = this.validatePhoneNumber(leasingForm.getPhoneNumber());
         if (customException != null)
             return customException;
-        customException = this.validateStreet();
+        customException = this.validateStreet(leasingForm.getStreet());
         if (customException != null)
             return customException;
-        customException = this.validateCity();
+        customException = this.validateCity(leasingForm.getCity());
         if (customException != null)
             return customException;
-        customException = this.validatePostCode();
+        customException = this.validatePostCode(leasingForm.getPostCode());
         if (customException != null)
             return customException;
-        customException = this.validateCountry();
+        customException = this.validateCountry(leasingForm.getCountry());
         if (customException != null)
             return customException;
 
@@ -225,8 +225,8 @@ public class FormValidation {
                     return null;
                 }
             } else {
-                if(contractFee.scale() <= 1){
-                    contractFee=contractFee.setScale(2);
+                if (contractFee.scale() <= 1) {
+                    contractFee = contractFee.setScale(2);
                 }
                 if (onePercentValue.equals(contractFee)) {
                     return null;
@@ -244,56 +244,108 @@ public class FormValidation {
         }
     }
 
-    private CustomException validatePersonalInformationType() {
-        return null;
-    }
-
     //personal information
+    private int validatePersonalInformationType(LeasingForm leasingForm) {//0 - private 1 - business -1 - both
+        boolean isPrivateForm = false;
+        boolean isBusinessForm = false;
+        if (leasingForm.getFirstName() != null || leasingForm.getLastName() != null || leasingForm.getPersonalCode() != null) {
+            isPrivateForm = true;
+        }
+        if (leasingForm.getCompanyName() != null || leasingForm.getCompanyCode() != null) {
+            isBusinessForm = true;
+        }
+        if (isBusinessForm && !isPrivateForm) {
+            return 1;
+        } else if (!isBusinessForm && isPrivateForm) {
+            return 0;
+        }
+        return -1;
+    }
+
     //private
-    private CustomException validateFirstName() {
-        return null;
+    private CustomException validateFirstName(String firstName) {
+        if (firstName.matches("[a-zA-Z]+")) {
+            return null;
+        }
+        return new CustomException("Invalid First Name");
 
     }
 
-    private CustomException validateLastName() {
-        return null;
+    private CustomException validateLastName(String lastName) {
+        if (lastName.matches("[a-zA-ZąčęėįųūšžĄČĖĘĮŲŪČŠŽ ,.\\'-]+")) {
+            return null;
+        }
+        return new CustomException("Invalid Last Name");
     }
 
-    private CustomException validatePersonalCode() {
-        return null;
+    private CustomException validatePersonalCode(String personalCode) {
+        if (personalCode.matches("[3-6][0-9]{2}[0,1][0-9][0-9]{2}[0-9]{4}")) {
+            return null;
+        }
+        return new CustomException("Invalid Personal Code");
     }
 
     //business
-    private CustomException validateCompanyName() {
-        return null;
+    private CustomException validateCompanyName(String companyName) {
+        if (companyName.matches("[a-zA-Z0-9ĄČĘĖĮŠŲŪŽąčęėįšųūž\\s]+")) {
+            return null;
+        }
+        return new CustomException("Invalid Company Name");
     }
 
-    private CustomException validateCompanyCode() {
-        return null;
+    private CustomException validateCompanyCode(String companyCode) {
+        if (companyCode.matches("[0-9]{9}")) {
+            return null;
+        }
+        return new CustomException("Invalid Company Code");
     }
 
     //other fields
-    private CustomException validateEmail() {
-        return null;
+    private CustomException validateEmail(String email) {
+
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+
+        if (m.matches()) {
+            return null;
+        }
+        return new CustomException("Invalid Email");
     }
 
-    private CustomException validatePhoneNumber() {
-        return null;
+    private CustomException validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber.matches("[+]+[0-9]{11}")) {
+            return null;
+        }
+        return new CustomException("Invalid Phone Number");
     }
 
-    private CustomException validateStreet() {
-        return null;
+    private CustomException validateStreet(String street) {
+        if (street.matches("[a-zA-ZĄČĘĖĮŠŲŪŽąčęėįšųūž0-9\\s\\.\\-]+")) {
+            return null;
+        }
+        return new CustomException("Invalid Street");
     }
 
-    private CustomException validateCity() {
-        return null;
+    private CustomException validateCity(String city) {
+        if (city.matches("[a-zA-ZĄČĘĖĮŠŲŪŽąčęėįšųūž\\s]+")) {
+            return null;
+        }
+        return new CustomException("Invalid City");
     }
 
-    private CustomException validatePostCode() {
-        return null;
+
+    private CustomException validatePostCode(String postCode) {
+        if (postCode.matches("[LT]{2}\\d{5}")) {
+            return null;
+        }
+        return new CustomException("Invalid Post Code");
     }
 
-    private CustomException validateCountry() {
-        return null;
+    private CustomException validateCountry(String country) {
+        if (country.matches("[a-zA-ZĄČĘĖĮŠŲŪŽąčęėįšųūž\\s]+")) {
+            return null;
+        }
+        return new CustomException("Invalid Country");
     }
 }
