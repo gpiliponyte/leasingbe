@@ -1,9 +1,11 @@
 package itacademy.vehicleleasingbe.leasingbe.services;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -11,10 +13,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class LeasingFormService {
+public class LeasingFormService{
 
     @Autowired
     private LeasingFormRepository leasingFormRepository;
+
 
     public List<PostLeasingForm> getAllLeases() {
         return leasingFormRepository.findAll().stream()
@@ -24,7 +27,7 @@ public class LeasingFormService {
 
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
         LeasingForm newLeasingForm = new LeasingForm();
-
+        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
@@ -54,6 +57,8 @@ public class LeasingFormService {
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
 
+        newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+
         return leasingFormRepository.save(newLeasingForm);
     }
 
@@ -63,6 +68,7 @@ public class LeasingFormService {
         // 2. update blog post
         // 3. save blog post
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
+        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
@@ -93,7 +99,13 @@ public class LeasingFormService {
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
+        leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+
         return leasingFormRepository.save(leasingForm);
+    }
+
+    public LeasingForm findByUniqueId(String uniqueId) {
+       return leasingFormRepository.findByUniqueId(uniqueId);
     }
 
     public void deleteLeaseForm(String id) {
