@@ -34,7 +34,6 @@ public class LeasingFormController {
         return new PostLeasingForm(service.updateBlogPost(id, leasingForm));
     }
 
-
     @RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
     public void removePost(@PathVariable("id") String id) {
         service.deleteLeaseForm(id);
