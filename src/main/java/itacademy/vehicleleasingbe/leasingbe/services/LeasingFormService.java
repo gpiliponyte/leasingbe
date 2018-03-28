@@ -21,6 +21,9 @@ public class LeasingFormService{
 
 
 
+
+
+
     public List<PostLeasingForm> getAllLeases() {
         return leasingFormRepository.findAll().stream()
                 .map(PostLeasingForm::new)
@@ -103,6 +106,10 @@ public class LeasingFormService{
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
 
         return leasingFormRepository.save(leasingForm);
+    }
+
+    public LeasingForm findByUniqueId(String uniqueId) {
+       return leasingFormRepository.findByUniqueId(uniqueId);
     }
 
     public void deleteLeaseForm(String id) {
