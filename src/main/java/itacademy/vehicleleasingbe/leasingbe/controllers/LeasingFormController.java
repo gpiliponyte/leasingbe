@@ -34,7 +34,7 @@ public class LeasingFormController {
     }
 
     @RequestMapping(value ="/uniqueId/{uniqueId}", method = RequestMethod.GET)
-    public PostLeasingForm getLeaseByUniqueId(@PathVariable String uniqueId) {
+    public PostLeasingForm getLeaseByUniqueId(@PathVariable("uniqueId") String uniqueId) {
        return new PostLeasingForm(service.findByUniqueId(uniqueId));
     }
 
