@@ -1,7 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.response;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 
-import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

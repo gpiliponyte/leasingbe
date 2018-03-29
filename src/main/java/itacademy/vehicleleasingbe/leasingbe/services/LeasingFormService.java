@@ -1,11 +1,11 @@
 package itacademy.vehicleleasingbe.leasingbe.services;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.support.CronSequenceGenerator;
+
 import org.springframework.stereotype.Service;
 import itacademy.vehicleleasingbe.leasingbe.validations.CustomException;
 import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
@@ -32,6 +32,8 @@ public class LeasingFormService {
 
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws CustomException {
         LeasingForm newLeasingForm = new LeasingForm();
+        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
+        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
         FormValidation formValidation = new FormValidation();
         List<VehicleInfoResponse> vehicleInfos = vehicleInfoService.getAllVehicleInfo();
@@ -52,7 +54,7 @@ public class LeasingFormService {
             newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
             newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
             newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
-            newLeasingForm.setMargin(leasingForm.getMargin());
+            newLeasingForm.setMargin(calculateMarginService.calculateMargin());
             newLeasingForm.setContractFee(leasingForm.getContractFee());
             newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
 
@@ -70,6 +72,8 @@ public class LeasingFormService {
             newLeasingForm.setPostCode(leasingForm.getPostCode());
             newLeasingForm.setCountry(leasingForm.getCountry());
 
+            newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+            newLeasingForm.setApplicationStatus("Processing");
 
             return leasingFormRepository.save(newLeasingForm);
         }
@@ -82,6 +86,7 @@ public class LeasingFormService {
         // 3. save blog post
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
+        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
@@ -93,7 +98,7 @@ public class LeasingFormService {
         leasingForm.setAdvancePaymentPercentage(updateLeasingFormInfo.getAdvancePaymentPercentage());
         leasingForm.setAdvancePaymentAmount(updateLeasingFormInfo.getAdvancePaymentAmount());
         leasingForm.setLeasePeriod(updateLeasingFormInfo.getLeasePeriod());
-        leasingForm.setMargin(updateLeasingFormInfo.getMargin());
+        leasingForm.setMargin(calculateMarginService.calculateMargin());
         leasingForm.setContractFee(updateLeasingFormInfo.getContractFee());
         leasingForm.setPaymentDate(updateLeasingFormInfo.getPaymentDate());
 
@@ -112,9 +117,10 @@ public class LeasingFormService {
         leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
-        leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
 
+        leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
         leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
+
 
         return leasingFormRepository.save(leasingForm);
     }
