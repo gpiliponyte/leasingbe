@@ -1,7 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 
-import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -62,6 +61,7 @@ public class LeasingForm {
     private String lastName;
     private String personalCode;
     private String uniqueId;
+    private String applicationStatus;
 
     public String getId() {
         return id;
@@ -269,5 +269,13 @@ public class LeasingForm {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public String getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
     }
 }

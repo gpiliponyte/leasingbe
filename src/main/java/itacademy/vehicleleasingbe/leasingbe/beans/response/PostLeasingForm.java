@@ -1,7 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.response;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 
 import java.math.BigDecimal;
 
@@ -35,6 +34,7 @@ public class PostLeasingForm extends Response {
     private String lastName;
     private String personalCode;
     private String uniqueId;
+    private String applicationStatus;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -70,6 +70,7 @@ public class PostLeasingForm extends Response {
         this.postCode = leasingForm.getPostCode();
         this.country = leasingForm.getCountry();
         this.uniqueId = leasingForm.getUniqueId();
+        this.applicationStatus = leasingForm.getApplicationStatus();
 
     }
 
@@ -279,5 +280,13 @@ public class PostLeasingForm extends Response {
 
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public String getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
     }
 }

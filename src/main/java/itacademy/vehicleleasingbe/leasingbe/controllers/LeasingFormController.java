@@ -5,9 +5,9 @@ import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import itacademy.vehicleleasingbe.leasingbe.services.LeasingFormService;
-import itacademy.vehicleleasingbe.leasingbe.services.UniqueIdGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import itacademy.vehicleleasingbe.leasingbe.validations.CustomException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,7 +29,7 @@ public class LeasingFormController {
     }
 
     @RequestMapping(value = "/addLease", method = RequestMethod.POST)
-    public PostLeasingForm addLease(@Valid @RequestBody LeasingForm leasingForm) {
+    public PostLeasingForm addLease(@Valid @RequestBody LeasingForm leasingForm)throws CustomException {
         return new PostLeasingForm(service.addNewLease(leasingForm));
     }
 
