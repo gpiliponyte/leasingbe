@@ -28,6 +28,7 @@ public class LeasingFormService{
     public LeasingForm addNewLease(@Valid LeasingForm leasingForm) {
         LeasingForm newLeasingForm = new LeasingForm();
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
+        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
         newLeasingForm.setCustomerType(leasingForm.getCustomerType());
         newLeasingForm.setAssetType(leasingForm.getAssetType());
@@ -39,7 +40,7 @@ public class LeasingFormService{
         newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
         newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
         newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
-        newLeasingForm.setMargin(leasingForm.getMargin());
+        newLeasingForm.setMargin(calculateMarginService.calculateMargin());
         newLeasingForm.setContractFee(leasingForm.getContractFee());
         newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
 
@@ -57,8 +58,12 @@ public class LeasingFormService{
         newLeasingForm.setPostCode(leasingForm.getPostCode());
         newLeasingForm.setCountry(leasingForm.getCountry());
 
+//        newLeasingForm.setTotalMonthlyPayment(leasingForm.getTotalMonthlyPayment());
+//        newLeasingForm.setFinancingAmount(leasingForm.getFinancingAmount());
+//        newLeasingForm.setTotalInterest(leasingForm.getTotalInterest());
+
         newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-        newLeasingForm.setApplicationStatus(leasingForm.getApplicationStatus());
+        newLeasingForm.setApplicationStatus("Processing");
 
         return leasingFormRepository.save(newLeasingForm);
     }
@@ -70,6 +75,7 @@ public class LeasingFormService{
         // 3. save blog post
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
+        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
         leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
         leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
@@ -81,7 +87,7 @@ public class LeasingFormService{
         leasingForm.setAdvancePaymentPercentage(updateLeasingFormInfo.getAdvancePaymentPercentage());
         leasingForm.setAdvancePaymentAmount(updateLeasingFormInfo.getAdvancePaymentAmount());
         leasingForm.setLeasePeriod(updateLeasingFormInfo.getLeasePeriod());
-        leasingForm.setMargin(updateLeasingFormInfo.getMargin());
+        leasingForm.setMargin(calculateMarginService.calculateMargin());
         leasingForm.setContractFee(updateLeasingFormInfo.getContractFee());
         leasingForm.setPaymentDate(updateLeasingFormInfo.getPaymentDate());
 
@@ -101,8 +107,7 @@ public class LeasingFormService{
         leasingForm.setCountry(updateLeasingFormInfo.getCountry());
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-
-        leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
+        leasingForm.setApplicationStatus("Processing");
 
         return leasingFormRepository.save(leasingForm);
     }

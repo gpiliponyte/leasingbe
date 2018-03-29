@@ -37,6 +37,7 @@ public class PostLeasingForm extends Response {
     private String uniqueId;
     private String applicationStatus;
 
+
     public PostLeasingForm(LeasingForm leasingForm) {
 
         this.id = leasingForm.getId();
@@ -290,4 +291,28 @@ public class PostLeasingForm extends Response {
     public void setApplicationStatus(String applicationStatus) {
         this.applicationStatus = applicationStatus;
     }
+
+//    public BigDecimal getFinancingAmount() {
+//        return financingAmount;
+//    }
+//
+//    public void setFinancingAmount(BigDecimal financingAmount) {
+//        this.financingAmount = financingAmount;
+//    }
+//
+//    public BigDecimal getTotalInterest() {
+//        return totalInterest;
+//    }
+//
+//    public void setTotalInterest(BigDecimal totalInterest) {
+//        this.totalInterest = totalInterest;
+//    }
+//
+//    public BigDecimal getTotalMonthlyPayment() {
+//        return totalMonthlyPayment;
+//    }
+//
+//    public void setTotalMonthlyPayment(BigDecimal totalMonthlyPayment) {
+//        this.totalMonthlyPayment = totalMonthlyPayment;
+//    }
 }
