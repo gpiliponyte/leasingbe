@@ -314,7 +314,7 @@ public class FormValidation {
     }
 
     private CustomException validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber.matches("[+]+[0-9]{11}")) {
+        if (phoneNumber.matches("[0-9]{11}")) {
             return null;
         }
         return new CustomException("Invalid Phone Number");
