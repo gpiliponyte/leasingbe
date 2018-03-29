@@ -159,7 +159,7 @@ public class FormValidation {
     }
 
     private CustomException validateAssetPrice(BigDecimal assetPrice) {
-        if ((assetPrice.compareTo(new BigDecimal(5000)) != -1) && (assetPrice.scale() <= 2)) {
+        if ((assetPrice.compareTo(new BigDecimal(10000)) != -1) && (assetPrice.scale() <= 2)) {
             return null;
         }
         return new CustomException("Invalid Asset Price");
@@ -336,7 +336,7 @@ public class FormValidation {
 
 
     private CustomException validatePostCode(String postCode) {
-        if (postCode.matches("[LT]{2}\\d{5}")) {
+        if (postCode.matches("[a-zA-Z0-9\\-]*")) {
             return null;
         }
         return new CustomException("Invalid Post Code");
