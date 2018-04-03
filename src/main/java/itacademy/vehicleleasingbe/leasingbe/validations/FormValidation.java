@@ -220,17 +220,18 @@ public class FormValidation {
     private CustomException validateContractFee(BigDecimal assetPrice, BigDecimal contractFee) {
         if (contractFee.scale() <= 2) {
             BigDecimal onePercentValue = assetPrice.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
-            if (onePercentValue.compareTo(new BigDecimal(200)) != 1) {
-                if (contractFee.equals(new BigDecimal(50))) {
-                    return null;
-                }
-            } else {
-                if (contractFee.scale() <= 1) {
-                    contractFee = contractFee.setScale(2);
-                }
-                if (onePercentValue.equals(contractFee)) {
-                    return null;
-                }
+            if (onePercentValue.compareTo(new BigDecimal(200)) == -1) {
+                onePercentValue = new BigDecimal(200);
+                onePercentValue.setScale(2);
+            }
+            if (onePercentValue.scale() <= 1) {
+                onePercentValue = onePercentValue.setScale(2);
+            }
+            if (contractFee.scale() <= 1) {
+                contractFee = contractFee.setScale(2);
+            }
+            if (onePercentValue.equals(contractFee)) {
+                return null;
             }
         }
         return new CustomException("Invalid Contract Fee");
@@ -294,7 +295,7 @@ public class FormValidation {
     }
 
     private CustomException validateCompanyCode(String companyCode) {
-        if (companyCode.matches("[0-9]{9}")) {
+        if (companyCode.matches("[0-9]+")) {
             return null;
         }
         return new CustomException("Invalid Company Code");
@@ -314,7 +315,7 @@ public class FormValidation {
     }
 
     private CustomException validatePhoneNumber(String phoneNumber) {
-        if (phoneNumber.matches("[0-9]{11}")) {
+        if (phoneNumber.matches("[0-9]+")) {
             return null;
         }
         return new CustomException("Invalid Phone Number");

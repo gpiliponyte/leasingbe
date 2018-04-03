@@ -73,7 +73,7 @@ public class LeasingFormService {
             newLeasingForm.setCountry(leasingForm.getCountry());
 
             newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-            newLeasingForm.setApplicationStatus("Processing");
+            newLeasingForm.setApplicationStatus("Application is being processed");
 
             return leasingFormRepository.save(newLeasingForm);
         }
