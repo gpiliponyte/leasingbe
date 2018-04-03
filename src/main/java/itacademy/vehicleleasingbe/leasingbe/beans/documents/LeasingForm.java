@@ -3,9 +3,12 @@ package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+
 import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Document(collection = "posts")
 public class LeasingForm {
@@ -61,14 +64,14 @@ public class LeasingForm {
     private String lastName;
     private String personalCode;
     private String uniqueId;
-    private Timestamp date;
+    private Date date;
     private String applicationStatus;
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

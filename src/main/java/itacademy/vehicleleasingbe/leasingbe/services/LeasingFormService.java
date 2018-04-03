@@ -13,8 +13,10 @@ import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,8 +78,14 @@ public class LeasingFormService {
 
             newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
             newLeasingForm.setApplicationStatus("Application is being processed");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.add(Calendar.HOUR_OF_DAY, 3);
+            newLeasingForm.setDate(calendar.getTime());
             //Date date = new Date();
-            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
+//            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
+//            Date date = new Date();
+//            newLeasingForm.setDate(new Timestamp(date.getTime()));
 
             return leasingFormRepository.save(newLeasingForm);
         }
@@ -124,7 +132,7 @@ public class LeasingFormService {
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
         leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
-        leasingForm.setDate(updateLeasingFormInfo.getDate());
+//        leasingForm.setDate(updateLeasingFormInfo.getDate());
 
 
 

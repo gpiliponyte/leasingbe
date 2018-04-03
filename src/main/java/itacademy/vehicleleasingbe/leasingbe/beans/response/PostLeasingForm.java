@@ -4,6 +4,7 @@ import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class PostLeasingForm extends Response {
 
@@ -36,7 +37,7 @@ public class PostLeasingForm extends Response {
     private String personalCode;
     private String uniqueId;
     private String applicationStatus;
-    private Timestamp date;
+    private Date date;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -85,11 +86,11 @@ public class PostLeasingForm extends Response {
         this.id = id;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
