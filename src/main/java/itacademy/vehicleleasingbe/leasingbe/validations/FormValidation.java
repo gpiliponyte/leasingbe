@@ -208,9 +208,9 @@ public class FormValidation {
     }
 
     private CustomException validateMargin(BigDecimal margin) {
-        BigDecimal smallestMargin = new BigDecimal(3.2);
+        BigDecimal smallestMargin = new BigDecimal(1);
         smallestMargin = smallestMargin.setScale(2, RoundingMode.FLOOR);
-        if ((margin.compareTo(smallestMargin) != -1) && (margin.compareTo(new BigDecimal(100)) != 1) && margin.scale() <= 2) {
+        if ((margin.compareTo(smallestMargin) != -1) && (margin.compareTo(new BigDecimal(25)) != 1) && margin.scale() <= 2) {
             return null;
         }
 
