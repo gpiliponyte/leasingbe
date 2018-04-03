@@ -151,7 +151,7 @@ public class FormValidation {
     }
 
     private CustomException validateEnginePower(BigDecimal enginePower) {
-        if (enginePower.compareTo(BigDecimal.ONE) > -1 && enginePower.scale() <= 2) {
+        if (enginePower.compareTo(new BigDecimal(1000)) < 1 && enginePower.compareTo(new BigDecimal(10)) > -1 && enginePower.scale() <= 2) {
             return null;
         } else {
             return new CustomException("Invalid Engine Power");
@@ -159,7 +159,7 @@ public class FormValidation {
     }
 
     private CustomException validateAssetPrice(BigDecimal assetPrice) {
-        if ((assetPrice.compareTo(new BigDecimal(10000)) != -1) && (assetPrice.scale() <= 2)) {
+        if ((assetPrice.compareTo(new BigDecimal(10000)) != -1) && (assetPrice.scale() <= 2) && assetPrice.compareTo(new BigDecimal(1000000))<1) {
             return null;
         }
         return new CustomException("Invalid Asset Price");
@@ -167,7 +167,7 @@ public class FormValidation {
 
     private CustomException validateAdvancePaymentPercentage(BigDecimal assetPrice, BigDecimal advancePaymentPercentage, BigDecimal advancePaymentAmount) {
         if ((advancePaymentPercentage.compareTo(new BigDecimal(10)) != -1) && advancePaymentPercentage.scale() <= 2) {
-            if (advancePaymentPercentage.compareTo(new BigDecimal(100)) != 1) {
+            if (advancePaymentPercentage.compareTo(new BigDecimal(30)) != 1) {
                 if (advancePaymentPercentage.scale() <= 1) {
                     advancePaymentPercentage = advancePaymentPercentage.setScale(2);
                 }
@@ -187,7 +187,7 @@ public class FormValidation {
             if (advancePaymentAmount.scale() <= 1) {
                 advancePaymentAmount = advancePaymentAmount.setScale(2);
             }
-            if (advancePaymentAmount.equals(advancePaymentPercentage.multiply(assetPrice).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP))) {
+            if (advancePaymentAmount.equals(advancePaymentPercentage.multiply(assetPrice).divide(new BigDecimal(30), 2, RoundingMode.HALF_UP))) {
                 return null;
             } else {
                 return new CustomException("Invalid Advance Payment Amount or Advance Payment Percentage");
