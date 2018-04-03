@@ -3,7 +3,7 @@ package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -61,7 +61,16 @@ public class LeasingForm {
     private String lastName;
     private String personalCode;
     private String uniqueId;
+    private Timestamp date;
     private String applicationStatus;
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;

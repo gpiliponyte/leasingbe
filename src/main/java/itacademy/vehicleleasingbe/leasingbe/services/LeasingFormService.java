@@ -12,6 +12,8 @@ import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +76,8 @@ public class LeasingFormService {
 
             newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
             newLeasingForm.setApplicationStatus("Application is being processed");
+            //Date date = new Date();
+            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
 
             return leasingFormRepository.save(newLeasingForm);
         }
@@ -120,6 +124,8 @@ public class LeasingFormService {
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
         leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
+        leasingForm.setDate(updateLeasingFormInfo.getDate());
+
 
 
         return leasingFormRepository.save(leasingForm);

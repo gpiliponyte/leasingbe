@@ -3,6 +3,7 @@ package itacademy.vehicleleasingbe.leasingbe.beans.response;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class PostLeasingForm extends Response {
 
@@ -35,10 +36,12 @@ public class PostLeasingForm extends Response {
     private String personalCode;
     private String uniqueId;
     private String applicationStatus;
+    private Timestamp date;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
         this.id = leasingForm.getId();
+        this.date = leasingForm.getDate();
         this.customerType = leasingForm.getCustomerType();
         this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
@@ -80,6 +83,14 @@ public class PostLeasingForm extends Response {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public String getCustomerType() {
