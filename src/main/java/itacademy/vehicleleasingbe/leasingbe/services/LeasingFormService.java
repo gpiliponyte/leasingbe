@@ -2,6 +2,7 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.PaymentCalendar;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ public class LeasingFormService {
     private LeasingFormRepository leasingFormRepository;
     @Autowired
     private VehicleInfoService vehicleInfoService;
+    @Autowired
+    private GenerateCalendarService generateCalendarService;
+    @Autowired
+    private PaymentCalendarService paymentCalendarService;
 
 
     public List<PostLeasingForm> getAllLeases() {
@@ -76,16 +81,18 @@ public class LeasingFormService {
             newLeasingForm.setPostCode(leasingForm.getPostCode());
             newLeasingForm.setCountry(leasingForm.getCountry());
 
-            newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+            String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
+
+            newLeasingForm.setUniqueId(uniqueId);
             newLeasingForm.setApplicationStatus("Application is being processed");
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.HOUR_OF_DAY, 3);
+
             newLeasingForm.setDate(calendar.getTime());
-            //Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
-//            Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(date.getTime()));
+
+            paymentCalendarService.addCalendar(uniqueId, newLeasingForm);
 
             return leasingFormRepository.save(newLeasingForm);
         }
@@ -132,7 +139,7 @@ public class LeasingFormService {
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
         leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
-//        leasingForm.setDate(updateLeasingFormInfo.getDate());
+        leasingForm.setDate(updateLeasingFormInfo.getDate());
 
 
 

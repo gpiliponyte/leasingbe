@@ -180,6 +180,7 @@ public class FormValidation {
             }
         }
         return new CustomException("Invalid Advance Payment Percentage");
+
     }
 
     private CustomException validateAdvancePaymentAmount(BigDecimal assetPrice, BigDecimal advancePaymentPercentage, BigDecimal advancePaymentAmount) {
@@ -194,6 +195,7 @@ public class FormValidation {
             }
         }
         return new CustomException("Invalid Advance Payment Amount");
+
     }
 
     private CustomException validateLeasePeriod(BigDecimal leasePeriod) {
