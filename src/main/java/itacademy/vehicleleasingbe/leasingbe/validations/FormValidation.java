@@ -171,7 +171,6 @@ public class FormValidation {
                 if (advancePaymentPercentage.scale() <= 1) {
                     advancePaymentPercentage = advancePaymentPercentage.setScale(2);
                 }
-                BigDecimal kappa = advancePaymentAmount.multiply(new BigDecimal(100)).divide(assetPrice, 2, RoundingMode.HALF_UP);
                 if (advancePaymentPercentage.equals(advancePaymentAmount.multiply(new BigDecimal(100)).divide(assetPrice, 2, RoundingMode.HALF_UP))) {
                     return null;
                 } else {
@@ -187,7 +186,10 @@ public class FormValidation {
             if (advancePaymentAmount.scale() <= 1) {
                 advancePaymentAmount = advancePaymentAmount.setScale(2);
             }
-            if (advancePaymentAmount.equals(advancePaymentPercentage.multiply(assetPrice).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP))) {
+            BigDecimal locallyCalculateRoundAdvancePaymentAmount = advancePaymentPercentage.multiply(assetPrice).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+            BigDecimal locallyCalculateRoundFloorAdvancePaymentAmount = advancePaymentPercentage.multiply(assetPrice).divide(new BigDecimal(100), 0, RoundingMode.DOWN);
+            locallyCalculateRoundFloorAdvancePaymentAmount=locallyCalculateRoundFloorAdvancePaymentAmount.setScale(2);
+            if (advancePaymentAmount.equals(locallyCalculateRoundAdvancePaymentAmount) || advancePaymentAmount.equals(locallyCalculateRoundFloorAdvancePaymentAmount)) {
                 return null;
             } else {
                 return new CustomException("Invalid Advance Payment Amount or Advance Payment Percentage");
@@ -208,9 +210,9 @@ public class FormValidation {
     }
 
     private CustomException validateMargin(BigDecimal margin) {
-        BigDecimal smallestMargin = new BigDecimal(1);
+        BigDecimal smallestMargin = new BigDecimal(3.2);
         smallestMargin = smallestMargin.setScale(2, RoundingMode.FLOOR);
-        if ((margin.compareTo(smallestMargin) != -1) && (margin.compareTo(new BigDecimal(25)) != 1) && margin.scale() <= 2) {
+        if ((margin.compareTo(smallestMargin) != -1) && (margin.compareTo(new BigDecimal(100)) != 1) && margin.scale() <= 2) {
             return null;
         }
 
