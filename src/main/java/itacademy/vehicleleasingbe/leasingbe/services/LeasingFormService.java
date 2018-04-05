@@ -83,6 +83,7 @@ public class LeasingFormService {
                     calendar.getTime(),
                     "Application is being processed");
             newLeasingForm.setPayments(generateCalendarService.generateCalendar(newLeasingForm));
+            newLeasingForm.setTotalInterestAmount(generateCalendarService.getTotalInterestAmount(newLeasingForm.getPayments()));
             return leasingFormRepository.save(newLeasingForm);
         }
     }
