@@ -23,7 +23,7 @@ public class GenerateCalendarService {
         Payment[] payments = new Payment[leasePeriodLengthInMonths];
 
         BigDecimal unpaidAssetAmount = leasingForm.getAssetPrice().subtract(leasingForm.getAdvancePaymentAmount());
-        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, calculateMarginService.calculateMargin().doubleValue());
+        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, calculateMarginService.calculateMargin().doubleValue()/100);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getFirstPaymentDate(leasingForm.getDate(), paymentDay));
@@ -47,7 +47,7 @@ public class GenerateCalendarService {
             //interestAmount
             payments[i].setInterestAmount
                     (payments[i].getUnpaidAssetAmount().multiply
-                            (new BigDecimal(calculateMarginService.calculateMargin().doubleValue())).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
+                            (new BigDecimal(calculateMarginService.calculateMargin().doubleValue()/100)).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
 
             //unpaidAssetRepaymentAmount
 
