@@ -1,14 +1,13 @@
 package itacademy.vehicleleasingbe.leasingbe.beans.response;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.Payment;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
 public class PostLeasingForm extends Response {
-
-
 
     private String id;
     private String customerType;
@@ -38,6 +37,7 @@ public class PostLeasingForm extends Response {
     private String uniqueId;
     private String applicationStatus;
     private Date date;
+    private Payment[] payments;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -75,7 +75,16 @@ public class PostLeasingForm extends Response {
         this.country = leasingForm.getCountry();
         this.uniqueId = leasingForm.getUniqueId();
         this.applicationStatus = leasingForm.getApplicationStatus();
+        this.payments = leasingForm.getPayments();
 
+    }
+
+    public Payment[] getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Payment[] payments) {
+        this.payments = payments;
     }
 
     public String getId() {

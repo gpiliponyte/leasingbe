@@ -12,11 +12,9 @@ import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,8 +24,6 @@ public class LeasingFormService {
     private LeasingFormRepository leasingFormRepository;
     @Autowired
     private VehicleInfoService vehicleInfoService;
-    @Autowired
-    private PaymentCalendarService paymentCalendarService;
     @Autowired
     private GenerateCalendarService generateCalendarService;
 
@@ -91,8 +87,7 @@ public class LeasingFormService {
 
             newLeasingForm.setDate(calendar.getTime());
 
-            paymentCalendarService.addCalendar(uniqueId, newLeasingForm);
-
+            newLeasingForm.setPayments(generateCalendarService.generateCalendar(newLeasingForm));
 
             return leasingFormRepository.save(newLeasingForm);
         }
@@ -136,9 +131,14 @@ public class LeasingFormService {
 
         leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
         leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
-//        leasingForm.setDate(updateLeasingFormInfo.getDate());
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 3);
 
+        leasingForm.setDate(calendar.getTime());
+
+        leasingForm.setPayments(generateCalendarService.generateCalendar(leasingForm));
 
         return leasingFormRepository.save(leasingForm);
     }

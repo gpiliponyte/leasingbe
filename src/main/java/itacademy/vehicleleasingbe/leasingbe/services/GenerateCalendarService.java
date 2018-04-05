@@ -2,6 +2,7 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,19 +13,17 @@ import java.util.Date;
 @Service
 public class GenerateCalendarService {
 
-    public Payment[] generateCalendar(String uniqueId, LeasingForm leasingForm){
+    @Autowired
+    private CalculateMarginService calculateMarginService;
+
+    public Payment[] generateCalendar(LeasingForm leasingForm){
 
         int leasePeriodLengthInMonths = leasingForm.getLeasePeriod().intValue();
         int paymentDay = Integer.parseInt(leasingForm.getPaymentDate());
         Payment[] payments = new Payment[leasePeriodLengthInMonths];
 
         BigDecimal unpaidAssetAmount = leasingForm.getAssetPrice().subtract(leasingForm.getAdvancePaymentAmount());
-        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, 0.05);
-
-        //Get Amount - advanced
-        //Get pagal formule
-        //Get interest
-        //Get total
+        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, calculateMarginService.calculateMargin().doubleValue());
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getFirstPaymentDate(leasingForm.getDate(), paymentDay));

@@ -66,6 +66,15 @@ public class LeasingForm {
     private String uniqueId;
     private Date date;
     private String applicationStatus;
+    private Payment[] payments;
+
+    public Payment[] getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Payment[] payments) {
+        this.payments = payments;
+    }
 
     public Date getDate() {
         return date;
