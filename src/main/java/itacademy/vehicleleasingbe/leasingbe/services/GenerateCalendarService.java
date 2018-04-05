@@ -23,12 +23,46 @@ public class GenerateCalendarService {
         Payment[] payments = new Payment[leasePeriodLengthInMonths];
 
         BigDecimal unpaidAssetAmount = leasingForm.getAssetPrice().subtract(leasingForm.getAdvancePaymentAmount());
-        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, calculateMarginService.calculateMargin().doubleValue());
+        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, 0.0427);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getFirstPaymentDate(leasingForm.getDate(), paymentDay));
         Calendar now = Calendar.getInstance();
         now.setTime(calendar.getTime());
+
+//        for(int i = 0; i < leasePeriodLengthInMonths; i ++){
+//            calendar.add(Calendar.MONTH, i);
+//            if(calendar.get(Calendar.MONTH)!= 1 && paymentDay == 30) calendar.set(Calendar.DATE, 30);
+//            if(calendar.get(Calendar.MONTH)== 1 && paymentDay == 30 && calendar.get(Calendar.YEAR) % 4 == 0)
+//                calendar.set(calendar.get(Calendar.YEAR), 1, 29);
+//
+//            payments[i] = new Payment();
+//
+//            //date
+//            payments[i].setDate(calendar.getTime()); //ok
+//
+//            //totalPaymentAmount
+//            payments[i].setTotalPaymentAmount(totalPaymentAmount); //ok
+//
+//            //unpaidAssetAmount
+//            payments[i].setUnpaidAssetAmount(unpaidAssetAmount);
+//
+//            //interestAmount
+//            payments[i].setInterestAmount
+//                    (payments[i].getUnpaidAssetAmount().multiply
+//                            (new BigDecimal(0.0427).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP)));
+//
+//            //calculateMarginService.calculateMargin().doubleValue()/100
+//            //unpaidAssetRepaymentAmount
+//
+//            payments[i].setUnpaidAssetRepaymentAmount
+//                    (totalPaymentAmount.subtract(payments[i].getInterestAmount()));
+//
+//
+//            unpaidAssetAmount = unpaidAssetAmount.subtract(payments[i].getUnpaidAssetRepaymentAmount());
+//
+//            calendar.setTime(now.getTime());
+//        }
 
         for(int i = 0; i < leasePeriodLengthInMonths; i ++){
             calendar.add(Calendar.MONTH, i);
@@ -39,15 +73,18 @@ public class GenerateCalendarService {
             payments[i] = new Payment();
 
             //date
-            payments[i].setDate(calendar.getTime());
+            payments[i].setDate(calendar.getTime()); //ok
+
+            //totalPaymentAmount
+            payments[i].setTotalPaymentAmount(totalPaymentAmount); //ok
+
             //unpaidAssetAmount
             payments[i].setUnpaidAssetAmount(unpaidAssetAmount);
-            //totalPaymentAmount
-            payments[i].setTotalPaymentAmount(totalPaymentAmount);
+
             //interestAmount
             payments[i].setInterestAmount
                     (payments[i].getUnpaidAssetAmount().multiply
-                            (new BigDecimal(calculateMarginService.calculateMargin().doubleValue())).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
+                            (new BigDecimal(0.0427)).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
 
             //unpaidAssetRepaymentAmount
 
@@ -60,9 +97,22 @@ public class GenerateCalendarService {
             calendar.setTime(now.getTime());
         }
 
+        payments[leasePeriodLengthInMonths-1].setUnpaidAssetRepaymentAmount(payments[leasePeriodLengthInMonths-1].getUnpaidAssetAmount());
+        payments[leasePeriodLengthInMonths-1].setInterestAmount(totalPaymentAmount.subtract(payments[leasePeriodLengthInMonths-1].getUnpaidAssetRepaymentAmount()));
+
         return payments;
 
     }
+
+//    public Payment[] roundPaymentFields(Payment[] payments){
+//        for(Payment payment : payments){
+//            payment.setInterestAmount(payment.getInterestAmount().setScale(2, RoundingMode.CEILING));
+//            payment.setUnpaidAssetRepaymentAmount(payment.getUnpaidAssetRepaymentAmount().setScale(2, RoundingMode.CEILING));
+//            payment.setUnpaidAssetAmount(payment.getUnpaidAssetAmount().setScale(2, RoundingMode.CEILING));
+//            payment.setTotalPaymentAmount(payment.getTotalPaymentAmount().setScale(2, RoundingMode.CEILING));
+//        }
+//        return payments;
+//    }
 
     public Date getFirstPaymentDate(Date now, int paymentDate){
 
@@ -122,11 +172,20 @@ public class GenerateCalendarService {
 
         BigDecimal calculationFour = calculationThree.add(new BigDecimal(1));
 
-//        BigDecimal ats = financingAmount.divide(bigPapaPlus1, RoundingMode.HALF_UP);
-//
-//        System.out.println(ats);
+        BigDecimal lastPayment = financingAmount.divide(calculationFour, 2, RoundingMode.HALF_UP);
 
-        return financingAmount.divide(calculationFour, RoundingMode.HALF_UP);
+        return lastPayment.multiply(i.add(BigDecimal.ONE)).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getTotalInterestAmount(Payment[] payments){
+
+        BigDecimal totalInterestAmount = BigDecimal.ZERO;
+
+        for(Payment payment : payments){
+            totalInterestAmount = totalInterestAmount.add(payment.getInterestAmount());
+        }
+
+        return totalInterestAmount.setScale(2, RoundingMode.CEILING);
     }
 
 

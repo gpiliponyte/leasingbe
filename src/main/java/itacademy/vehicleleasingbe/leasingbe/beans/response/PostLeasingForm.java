@@ -38,6 +38,7 @@ public class PostLeasingForm extends Response {
     private String applicationStatus;
     private Date date;
     private Payment[] payments;
+    private BigDecimal totalInterestAmount;
 
     public PostLeasingForm(LeasingForm leasingForm) {
 
@@ -76,7 +77,16 @@ public class PostLeasingForm extends Response {
         this.uniqueId = leasingForm.getUniqueId();
         this.applicationStatus = leasingForm.getApplicationStatus();
         this.payments = leasingForm.getPayments();
+        this.totalInterestAmount = leasingForm.getTotalInterestAmount();
 
+    }
+
+    public BigDecimal getTotalInterestAmount() {
+        return totalInterestAmount;
+    }
+
+    public void setTotalInterestAmount(BigDecimal totalInterestAmount) {
+        this.totalInterestAmount = totalInterestAmount;
     }
 
     public Payment[] getPayments() {

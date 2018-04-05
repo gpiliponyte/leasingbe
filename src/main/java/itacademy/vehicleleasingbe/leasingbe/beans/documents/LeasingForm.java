@@ -67,6 +67,15 @@ public class LeasingForm {
     private Date date;
     private String applicationStatus;
     private Payment[] payments;
+    private BigDecimal totalInterestAmount;
+
+    public BigDecimal getTotalInterestAmount() {
+        return totalInterestAmount;
+    }
+
+    public void setTotalInterestAmount(BigDecimal totalInterestAmount) {
+        this.totalInterestAmount = totalInterestAmount;
+    }
 
     public Payment[] getPayments() {
         return payments;
