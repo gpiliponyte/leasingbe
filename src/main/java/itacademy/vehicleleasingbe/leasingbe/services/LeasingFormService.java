@@ -26,6 +26,10 @@ public class LeasingFormService {
     private LeasingFormRepository leasingFormRepository;
     @Autowired
     private VehicleInfoService vehicleInfoService;
+    @Autowired
+    private PaymentCalendarService paymentCalendarService;
+    @Autowired
+    private GenerateCalendarService generateCalendarService;
 
 
     public List<PostLeasingForm> getAllLeases() {
@@ -76,26 +80,26 @@ public class LeasingFormService {
             newLeasingForm.setPostCode(leasingForm.getPostCode());
             newLeasingForm.setCountry(leasingForm.getCountry());
 
-            newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
+            String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
+
+            newLeasingForm.setUniqueId(uniqueId);
             newLeasingForm.setApplicationStatus("Application is being processed");
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.HOUR_OF_DAY, 3);
+
             newLeasingForm.setDate(calendar.getTime());
-            //Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
-//            Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(date.getTime()));
+
+            paymentCalendarService.addCalendar(uniqueId, newLeasingForm);
+
 
             return leasingFormRepository.save(newLeasingForm);
         }
     }
 
     public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
-        // steps:
-        // 1. get particular blog post
-        // 2. update blog post
-        // 3. save blog post
+
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
         CalculateMarginService calculateMarginService = new CalculateMarginService();
