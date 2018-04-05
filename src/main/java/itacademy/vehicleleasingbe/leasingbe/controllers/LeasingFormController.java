@@ -2,7 +2,7 @@ package itacademy.vehicleleasingbe.leasingbe.controllers;
 
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.response.LeasingFormResponse;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import itacademy.vehicleleasingbe.leasingbe.services.LeasingFormService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +24,28 @@ public class LeasingFormController {
     private LeasingFormRepository leasingFormRepository;
 
     @RequestMapping(value = "/")
-    public List<PostLeasingForm> getAllLeases() {
+    public List<LeasingFormResponse> getAllLeases() {
         return service.getAllLeases();
     }
 
     @RequestMapping(value = "/addLease", method = RequestMethod.POST)
-    public PostLeasingForm addLease(@Valid @RequestBody LeasingForm leasingForm)throws CustomException {
-        return new PostLeasingForm(service.addNewLease(leasingForm));
+    public LeasingFormResponse addLease(@Valid @RequestBody LeasingForm leasingForm)throws CustomException {
+        return new LeasingFormResponse(service.addNewLease(leasingForm));
     }
 
     @RequestMapping(value ="/uniqueId/{uniqueId}", method = RequestMethod.GET)
-    public PostLeasingForm getLeaseByUniqueId(@PathVariable("uniqueId") String uniqueId) {
-       return new PostLeasingForm(service.findByUniqueId(uniqueId));
+    public LeasingFormResponse getLeaseByUniqueId(@PathVariable("uniqueId") String uniqueId) {
+       return new LeasingFormResponse(service.findLeaseByUniqueId(uniqueId));
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public PostLeasingForm updateLease(@Valid @RequestBody LeasingForm leasingForm, @PathVariable("id") String id) {
-        return new PostLeasingForm(service.updateBlogPost(id, leasingForm));
+    public LeasingFormResponse updateLease(@Valid @RequestBody LeasingForm leasingForm, @PathVariable("id") String id) {
+        return new LeasingFormResponse(service.updateLease(id, leasingForm));
     }
 
-
-    @RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
-    public void removePost(@PathVariable("id") String id) {
-        service.deleteLeaseForm(id);
-    }
-
+//
+//@RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
+//public void removePost(@PathVariable("id") String id) {
+//service.deleteLeaseForm(id);
+//}
 }

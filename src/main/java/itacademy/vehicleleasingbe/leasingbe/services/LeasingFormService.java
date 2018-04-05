@@ -2,8 +2,10 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.response.LeasingFormResponse;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
+import itacademy.vehicleleasingbe.leasingbe.util.CalculateMarginService;
+import itacademy.vehicleleasingbe.leasingbe.util.GenerateCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -28,9 +30,9 @@ public class LeasingFormService {
     private GenerateCalendarService generateCalendarService;
 
 
-    public List<PostLeasingForm> getAllLeases() {
+    public List<LeasingFormResponse> getAllLeases() {
         return leasingFormRepository.findAll().stream()
-                .map(PostLeasingForm::new)
+                .map(LeasingFormResponse::new)
                 .collect(Collectors.toList());
     }
 
@@ -93,7 +95,7 @@ public class LeasingFormService {
         }
     }
 
-    public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
+    public LeasingForm updateLease(String id, LeasingForm updateLeasingFormInfo) {
 
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
@@ -143,12 +145,11 @@ public class LeasingFormService {
         return leasingFormRepository.save(leasingForm);
     }
 
-    public LeasingForm findByUniqueId(String uniqueId) {
+    public LeasingForm findLeaseByUniqueId(String uniqueId) {
         return leasingFormRepository.findByUniqueId(uniqueId);
     }
-
-    public void deleteLeaseForm(String id) {
-        leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));
-    }
-
+//
+//public void deleteLeaseForm(String id) {
+//leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));
+//}
 }

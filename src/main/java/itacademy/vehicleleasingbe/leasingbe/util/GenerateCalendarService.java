@@ -1,7 +1,8 @@
-package itacademy.vehicleleasingbe.leasingbe.services;
+package itacademy.vehicleleasingbe.leasingbe.util;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.Payment;
+import itacademy.vehicleleasingbe.leasingbe.util.CalculateMarginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

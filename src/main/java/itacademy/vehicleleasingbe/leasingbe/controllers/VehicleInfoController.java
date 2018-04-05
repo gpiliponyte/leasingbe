@@ -1,8 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.controllers;
 
-import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.VehicleInfo;
-import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 import itacademy.vehicleleasingbe.leasingbe.services.VehicleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;

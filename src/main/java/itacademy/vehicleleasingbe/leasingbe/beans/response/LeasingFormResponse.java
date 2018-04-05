@@ -3,11 +3,11 @@ package itacademy.vehicleleasingbe.leasingbe.beans.response;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.Payment;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
-public class PostLeasingForm extends Response {
+public class LeasingFormResponse implements Serializable {
 
     private String id;
     private String customerType;
@@ -23,28 +23,31 @@ public class PostLeasingForm extends Response {
     private BigDecimal margin;
     private BigDecimal contractFee;
     private String paymentDate;
-    private String companyName;
-    private String companyCode;
+    //Information bit
     private String email;
     private String phoneNumber;
     private String street;
     private String city;
     private String postCode;
     private String country;
+    //Business info
+    private String companyName;
+    private String companyCode;
+    //Personal Info
     private String firstName;
     private String lastName;
     private String personalCode;
+    //Other
     private String uniqueId;
     private String applicationStatus;
     private Date date;
     private Payment[] payments;
 
-    public PostLeasingForm(LeasingForm leasingForm) {
+    public LeasingFormResponse(LeasingForm leasingForm) {
 
         this.id = leasingForm.getId();
         this.date = leasingForm.getDate();
         this.customerType = leasingForm.getCustomerType();
-        this.model = leasingForm.getCustomerType();
         this.assetType = leasingForm.getAssetType();
         this.brand = leasingForm.getBrand();
         this.model = leasingForm.getModel();
@@ -57,22 +60,21 @@ public class PostLeasingForm extends Response {
         this.margin = leasingForm.getMargin();
         this.contractFee = leasingForm.getContractFee();
         this.paymentDate = leasingForm.getPaymentDate();
-        this.companyName = leasingForm.getCompanyName();
-        this.companyCode = leasingForm.getCompanyCode();
+        //Information bit
         this.email = leasingForm.getEmail();
         this.phoneNumber = leasingForm.getPhoneNumber();
         this.street = leasingForm.getStreet();
         this.city = leasingForm.getCity();
         this.postCode = leasingForm.getPostCode();
         this.country = leasingForm.getCountry();
+        //Business info
+        this.companyName = leasingForm.getCompanyName();
+        this.companyCode = leasingForm.getCompanyCode();
+        //Personal Info
         this.firstName = leasingForm.getFirstName();
         this.lastName  = leasingForm.getLastName();
         this.personalCode = leasingForm.getPersonalCode();
-        this.phoneNumber = leasingForm.getPhoneNumber();
-        this.street = leasingForm.getStreet();
-        this.city = leasingForm.getCity();
-        this.postCode = leasingForm.getPostCode();
-        this.country = leasingForm.getCountry();
+        //Other
         this.uniqueId = leasingForm.getUniqueId();
         this.applicationStatus = leasingForm.getApplicationStatus();
         this.payments = leasingForm.getPayments();

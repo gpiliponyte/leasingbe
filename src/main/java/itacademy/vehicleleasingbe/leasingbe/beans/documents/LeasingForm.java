@@ -5,12 +5,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Document(collection = "posts")
+@Document(collection = "leasing-forms")
 public class LeasingForm {
 
 
@@ -56,13 +55,14 @@ public class LeasingForm {
     private String postCode;
     @NotNull
     private String country;
-    //Buisiness info
+    //Business info
     private String companyName;
     private String companyCode;
     //Personal Info
     private String firstName;
     private String lastName;
     private String personalCode;
+    //Other
     private String uniqueId;
     private Date date;
     private String applicationStatus;
@@ -136,8 +136,8 @@ public class LeasingForm {
         return enginePower;
     }
 
-    public void setEnginePower(BigDecimal enginerPower) {
-        this.enginePower = enginerPower;
+    public void setEnginePower(BigDecimal enginePower) {
+        this.enginePower = enginePower;
     }
 
     public BigDecimal getAssetPrice() {

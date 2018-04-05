@@ -1,4 +1,4 @@
-package itacademy.vehicleleasingbe.leasingbe.services;
+package itacademy.vehicleleasingbe.leasingbe.util;
 
 
 import org.springframework.stereotype.Service;
