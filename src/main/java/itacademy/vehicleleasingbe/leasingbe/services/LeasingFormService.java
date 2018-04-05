@@ -91,6 +91,8 @@ public class LeasingFormService {
 
             newLeasingForm.setPayments(generateCalendarService.generateCalendar(newLeasingForm));
 
+            newLeasingForm.setTotalInterestAmount(generateCalendarService.getTotalInterestAmount(newLeasingForm.getPayments()));
+
             return leasingFormRepository.save(newLeasingForm);
         }
     }
@@ -141,6 +143,8 @@ public class LeasingFormService {
         leasingForm.setDate(calendar.getTime());
 
         leasingForm.setPayments(generateCalendarService.generateCalendar(leasingForm));
+
+        leasingForm.setTotalInterestAmount(generateCalendarService.getTotalInterestAmount(leasingForm.getPayments()));
 
         return leasingFormRepository.save(leasingForm);
     }

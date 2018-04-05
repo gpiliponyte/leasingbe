@@ -42,6 +42,7 @@ public class LeasingFormResponse implements Serializable {
     private String applicationStatus;
     private Date date;
     private Payment[] payments;
+    private BigDecimal totalInterestAmount;
 
     public LeasingFormResponse(LeasingForm leasingForm) {
 
@@ -78,7 +79,16 @@ public class LeasingFormResponse implements Serializable {
         this.uniqueId = leasingForm.getUniqueId();
         this.applicationStatus = leasingForm.getApplicationStatus();
         this.payments = leasingForm.getPayments();
+        this.totalInterestAmount = leasingForm.getTotalInterestAmount();
 
+    }
+
+    public BigDecimal getTotalInterestAmount() {
+        return totalInterestAmount;
+    }
+
+    public void setTotalInterestAmount(BigDecimal totalInterestAmount) {
+        this.totalInterestAmount = totalInterestAmount;
     }
 
     public Payment[] getPayments() {
