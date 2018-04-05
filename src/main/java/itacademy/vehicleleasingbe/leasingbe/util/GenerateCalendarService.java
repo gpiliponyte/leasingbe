@@ -67,19 +67,25 @@ public class GenerateCalendarService {
         payments[leasePeriodLengthInMonths-1].setUnpaidAssetRepaymentAmount(payments[leasePeriodLengthInMonths-1].getUnpaidAssetAmount());
         payments[leasePeriodLengthInMonths-1].setInterestAmount(totalPaymentAmount.subtract(payments[leasePeriodLengthInMonths-1].getUnpaidAssetRepaymentAmount()));
 
+        payments = roundPaymentFields(payments);
+
         return payments;
 
     }
 
-//    public Payment[] roundPaymentFields(Payment[] payments){
-//        for(Payment payment : payments){
-//            payment.setInterestAmount(payment.getInterestAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setUnpaidAssetRepaymentAmount(payment.getUnpaidAssetRepaymentAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setUnpaidAssetAmount(payment.getUnpaidAssetAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setTotalPaymentAmount(payment.getTotalPaymentAmount().setScale(2, RoundingMode.CEILING));
-//        }
-//        return payments;
-//    }
+    public Payment[] roundPaymentFields(Payment[] payments){
+        for(Payment payment : payments){
+            payment.setInterestAmount(payment.getInterestAmount().setScale(2, RoundingMode.CEILING));
+            System.out.println(payment.getInterestAmount());
+            payment.setUnpaidAssetRepaymentAmount(payment.getUnpaidAssetRepaymentAmount().setScale(2, RoundingMode.CEILING));
+            System.out.println(payment.getUnpaidAssetRepaymentAmount());
+            payment.setUnpaidAssetAmount(payment.getUnpaidAssetAmount().setScale(2, RoundingMode.CEILING));
+            System.out.println(payment.getUnpaidAssetAmount());
+            payment.setTotalPaymentAmount(payment.getTotalPaymentAmount().setScale(2, RoundingMode.CEILING));
+            System.out.println(payment.getTotalPaymentAmount());
+        }
+        return payments;
+    }
 
     public Date getFirstPaymentDate(Date now, int paymentDate){
 
@@ -147,6 +153,7 @@ public class GenerateCalendarService {
 
         for(Payment payment : payments){
             totalInterestAmount = totalInterestAmount.add(payment.getInterestAmount());
+
         }
 
         return totalInterestAmount;
