@@ -47,7 +47,7 @@ public class GenerateCalendarService {
             //interestAmount
             payments[i].setInterestAmount
                     (payments[i].getUnpaidAssetAmount().multiply
-                            (new BigDecimal(0.05)).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
+                            (new BigDecimal(calculateMarginService.calculateMargin().doubleValue())).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
 
             //unpaidAssetRepaymentAmount
 
