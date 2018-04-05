@@ -40,7 +40,7 @@ public class PaymentCalendarService {
     }
 
     public PaymentCalendar findByUniqueId(String uniqueId) {
-        return paymentCalendarRepository.findPaymentCalendarById(uniqueId);
+        return paymentCalendarRepository.findPaymentCalendarByUniqueId(uniqueId);
     }
 
 

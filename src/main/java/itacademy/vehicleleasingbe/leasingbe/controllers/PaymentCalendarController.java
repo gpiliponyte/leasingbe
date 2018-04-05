@@ -20,8 +20,14 @@ public class PaymentCalendarController {
 
     @Autowired
     private PaymentCalendarService service;
+
     @RequestMapping(value = "/calendars")
     public List<PaymentCalendarResponse> getAllCalendars() {
         return service.getAllCalendars();
+    }
+
+    @RequestMapping(value ="/calendarByUniqueId/{uniqueId}", method = RequestMethod.GET)
+    public PaymentCalendarResponse getCalendarByUniqueId(@PathVariable("uniqueId") String uniqueId) {
+        return new PaymentCalendarResponse(service.findByUniqueId(uniqueId));
     }
 }
