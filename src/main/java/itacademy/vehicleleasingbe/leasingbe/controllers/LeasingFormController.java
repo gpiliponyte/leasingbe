@@ -38,9 +38,9 @@ public class LeasingFormController {
        return new LeasingFormResponse(service.findLeaseByUniqueId(uniqueId));
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-    public LeasingFormResponse updateLease(@Valid @RequestBody LeasingForm leasingForm, @PathVariable("id") String id) {
-        return new LeasingFormResponse(service.updateLease(id, leasingForm));
+    @RequestMapping(value = "/update/{uniqueId}", method = RequestMethod.PUT)
+    public LeasingFormResponse updateLease(@Valid @RequestBody String applicationStatus, @PathVariable("uniqueId") String uniqueId) {
+        return new LeasingFormResponse(service.updateLease(uniqueId, applicationStatus));
     }
 
 //
