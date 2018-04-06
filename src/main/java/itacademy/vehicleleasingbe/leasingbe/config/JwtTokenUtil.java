@@ -1,9 +1,9 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config;
+package itacademy.vehicleleasingbe.leasingbe.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.User;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -13,8 +13,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.function.Function;
 
-import static itacademy.vehicleleasingbe.leasingbe.login.test.config.model.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
-import static itacademy.vehicleleasingbe.leasingbe.login.test.config.model.Constants.SIGNING_KEY;
+import static itacademy.vehicleleasingbe.leasingbe.beans.documents.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
+import static itacademy.vehicleleasingbe.leasingbe.beans.documents.Constants.SIGNING_KEY;
 
 @Component
 public class JwtTokenUtil implements Serializable {

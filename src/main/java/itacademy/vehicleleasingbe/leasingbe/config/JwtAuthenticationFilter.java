@@ -1,4 +1,4 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config;
+package itacademy.vehicleleasingbe.leasingbe.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static itacademy.vehicleleasingbe.leasingbe.login.test.config.model.Constants.HEADER_STRING;
-import static itacademy.vehicleleasingbe.leasingbe.login.test.config.model.Constants.TOKEN_PREFIX;
+import static itacademy.vehicleleasingbe.leasingbe.beans.documents.Constants.HEADER_STRING;
+import static itacademy.vehicleleasingbe.leasingbe.beans.documents.Constants.TOKEN_PREFIX;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 

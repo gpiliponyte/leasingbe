@@ -1,33 +1,32 @@
 package itacademy.vehicleleasingbe.leasingbe.controllers;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.User;
-import itacademy.vehicleleasingbe.leasingbe.beans.response.UserResponse;
-import itacademy.vehicleleasingbe.leasingbe.repositories.UserRepository;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.UserDto;
 import itacademy.vehicleleasingbe.leasingbe.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
-@RequestMapping("/")
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
 
-    @Autowired
-    UserService userService;
-
-    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
-    public boolean findUser(@PathVariable("username") String username){
-        return userService.getUser(username);
+    @RequestMapping(value="/users", method = RequestMethod.GET)
+    public List<User> listUser(){
+        return userService.findAll();
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public UserResponse newUser(@Valid @RequestBody User user){
-        return new UserResponse(userService.addNewUser(user));
+
+
+    @RequestMapping(value="/signup", method = RequestMethod.POST)
+    public User saveUser(@RequestBody UserDto user){
+        return userService.save(user);
     }
+
+
 
 }

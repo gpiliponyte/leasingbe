@@ -1,11 +1,9 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config.model;
+package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
-public class UserDto {
+public class LoginUser {
 
     private String username;
     private String password;
-    private int age;
-    private int salary;
 
     public String getUsername() {
         return username;

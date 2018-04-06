@@ -23,7 +23,7 @@ public class LeasingFormController {
     @Autowired
     private LeasingFormRepository leasingFormRepository;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/leases")
     public List<PostLeasingForm> getAllLeases() {
         return service.getAllLeases();
     }

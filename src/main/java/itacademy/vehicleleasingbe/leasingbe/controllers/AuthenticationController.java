@@ -1,12 +1,12 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config.controller;
+package itacademy.vehicleleasingbe.leasingbe.controllers;
 
 
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.JwtTokenUtil;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.AuthToken;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.LoginUser;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.User;
+import itacademy.vehicleleasingbe.leasingbe.config.JwtTokenUtil;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.AuthToken;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.LoginUser;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.User;
 
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.service.UserServiceTest;
+import itacademy.vehicleleasingbe.leasingbe.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +28,7 @@ public class AuthenticationController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private UserServiceTest userServiceTest;
+    private UserService userService;
 
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
     public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
@@ -40,7 +40,7 @@ public class AuthenticationController {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        final User user = userServiceTest.findOne(loginUser.getUsername());
+        final User user = userService.findOne(loginUser.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
         return ResponseEntity.ok(new AuthToken(token));
     }

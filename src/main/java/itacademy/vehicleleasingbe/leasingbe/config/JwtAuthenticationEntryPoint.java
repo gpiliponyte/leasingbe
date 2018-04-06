@@ -1,4 +1,4 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config;
+package itacademy.vehicleleasingbe.leasingbe.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

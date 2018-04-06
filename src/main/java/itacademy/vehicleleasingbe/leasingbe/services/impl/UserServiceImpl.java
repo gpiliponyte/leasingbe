@@ -1,9 +1,9 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config.service.impl;
+package itacademy.vehicleleasingbe.leasingbe.services.impl;
 
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.dao.UserDao;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.User;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.model.UserDto;
-import itacademy.vehicleleasingbe.leasingbe.login.test.config.service.UserServiceTest;
+import itacademy.vehicleleasingbe.leasingbe.repositories.UserRepository;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.User;
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.UserDto;
+import itacademy.vehicleleasingbe.leasingbe.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,16 +18,16 @@ import java.util.List;
 
 
 @Service(value = "userServiceTest")
-public class UserServiceTestImpl implements UserDetailsService, UserServiceTest {
+public class UserServiceImpl implements UserDetailsService, UserService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserRepository userRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userDao.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if(user == null){
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
@@ -40,13 +40,13 @@ public class UserServiceTestImpl implements UserDetailsService, UserServiceTest 
 
 	public List<User> findAll() {
 		List<User> list = new ArrayList<>();
-		userDao.findAll().iterator().forEachRemaining(list::add);
+		userRepository.findAll().iterator().forEachRemaining(list::add);
 		return list;
 	}
 
 	@Override
 	public User findOne(String username) {
-		return userDao.findByUsername(username);
+		return userRepository.findByUsername(username);
 	}
 
 
@@ -55,6 +55,6 @@ public class UserServiceTestImpl implements UserDetailsService, UserServiceTest 
 	    User newUser = new User();
 	    newUser.setUsername(user.getUsername());
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return userDao.save(newUser);
+        return userRepository.save(newUser);
     }
 }

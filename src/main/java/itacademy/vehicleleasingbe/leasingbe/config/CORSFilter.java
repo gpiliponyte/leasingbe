@@ -1,4 +1,4 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config;
+package itacademy.vehicleleasingbe.leasingbe.config;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
