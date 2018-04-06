@@ -56,7 +56,7 @@ public class LeasingFormService {
 
     public LeasingForm updateLease(String id, String newApplicationStatus) {
 
-        LeasingForm leasingForm = leasingFormRepository.findByUniqueId(id);
+        LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
