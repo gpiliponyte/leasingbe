@@ -1,4 +1,4 @@
-package itacademy.vehicleleasingbe.leasingbe.login.test.config.model;
+package itacademy.vehicleleasingbe.leasingbe.beans.documents;
 
 public class Constants {
 
