@@ -12,11 +12,9 @@ import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,7 +75,7 @@ public class LeasingFormService {
             newLeasingForm.setCountry(leasingForm.getCountry());
 
             newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-            newLeasingForm.setApplicationStatus("Application is being processed");
+            newLeasingForm.setApplicationStatus(leasingForm.getApplicationStatus());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.add(Calendar.HOUR_OF_DAY, 3);
@@ -142,6 +140,7 @@ public class LeasingFormService {
     public LeasingForm findByUniqueId(String uniqueId) {
         return leasingFormRepository.findByUniqueId(uniqueId);
     }
+    public List<LeasingForm> findAllByApplicationStatus(String applicationStatus) { return leasingFormRepository.findAllByApplicationStatus(applicationStatus); }
 
     public void deleteLeaseForm(String id) {
         leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));

@@ -1,6 +1,7 @@
 package itacademy.vehicleleasingbe.leasingbe.repositories;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +13,6 @@ public interface LeasingFormRepository extends CrudRepository<LeasingForm, Strin
     List<LeasingForm> findAll();
     LeasingForm findLeasingFormById(String id);
     LeasingForm findByUniqueId(String uniqueId);
+    List<LeasingForm> findAllByApplicationStatus(String applicationStatus);
 
 }
