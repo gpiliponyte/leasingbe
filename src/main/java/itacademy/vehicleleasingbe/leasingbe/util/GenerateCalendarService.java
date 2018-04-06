@@ -1,5 +1,6 @@
 package itacademy.vehicleleasingbe.leasingbe.util;
 
+import itacademy.vehicleleasingbe.leasingbe.beans.documents.DataForSchedule;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.Payment;
 import itacademy.vehicleleasingbe.leasingbe.util.CalculateMarginService;
@@ -14,20 +15,18 @@ import java.util.Date;
 @Service
 public class GenerateCalendarService {
 
-    @Autowired
-    private CalculateMarginService calculateMarginService;
 
-    public Payment[] generateCalendar(LeasingForm leasingForm){
+    public Payment[] generateCalendar(DataForSchedule dataForSchedule){
 
-        int leasePeriodLengthInMonths = leasingForm.getLeasePeriod().intValue();
-        int paymentDay = Integer.parseInt(leasingForm.getPaymentDate());
+        int leasePeriodLengthInMonths = dataForSchedule.getLeasePeriod().intValue();
+        int paymentDay = Integer.parseInt(dataForSchedule.getPaymentDate());
         Payment[] payments = new Payment[leasePeriodLengthInMonths];
 
-        BigDecimal unpaidAssetAmount = leasingForm.getAssetPrice().subtract(leasingForm.getAdvancePaymentAmount());
-        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, 0.0427);
+        BigDecimal unpaidAssetAmount = dataForSchedule.getAssetPrice().subtract(dataForSchedule.getAdvancePaymentAmount());
+        BigDecimal totalPaymentAmount = getTotalPaymentAmount(leasePeriodLengthInMonths, unpaidAssetAmount, dataForSchedule.getMargin().doubleValue()/100);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(getFirstPaymentDate(leasingForm.getDate(), paymentDay));
+        calendar.setTime(getFirstPaymentDate(dataForSchedule.getDate(), paymentDay));
         Calendar now = Calendar.getInstance();
         now.setTime(calendar.getTime());
 
@@ -51,7 +50,7 @@ public class GenerateCalendarService {
             //interestAmount
             payments[i].setInterestAmount
                     (payments[i].getUnpaidAssetAmount().multiply
-                            (new BigDecimal(0.0427)).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
+                            (dataForSchedule.getMargin().divide(new BigDecimal(100))).divide(new BigDecimal(12), 2, RoundingMode.HALF_UP));
 
             //unpaidAssetRepaymentAmount
 
@@ -70,16 +69,6 @@ public class GenerateCalendarService {
         return payments;
 
     }
-
-//    public Payment[] roundPaymentFields(Payment[] payments){
-//        for(Payment payment : payments){
-//            payment.setInterestAmount(payment.getInterestAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setUnpaidAssetRepaymentAmount(payment.getUnpaidAssetRepaymentAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setUnpaidAssetAmount(payment.getUnpaidAssetAmount().setScale(2, RoundingMode.CEILING));
-//            payment.setTotalPaymentAmount(payment.getTotalPaymentAmount().setScale(2, RoundingMode.CEILING));
-//        }
-//        return payments;
-//    }
 
     public Date getFirstPaymentDate(Date now, int paymentDate){
 
@@ -103,7 +92,7 @@ public class GenerateCalendarService {
 
         Calendar dayBeforeFirstPayment = Calendar.getInstance();
         dayBeforeFirstPayment.setTime(firstPaymentDate.getTime());
-        dayBeforeFirstPayment.add(Calendar.DATE, -1);
+        dayBeforeFirstPayment.add(Calendar.HOUR, -11);
 
         if(!currentDate.after(dayBeforeFirstPayment)) return firstPaymentDate.getTime();
 
