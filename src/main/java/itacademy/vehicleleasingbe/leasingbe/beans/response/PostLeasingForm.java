@@ -8,8 +8,7 @@ import java.util.Date;
 
 public class PostLeasingForm extends Response {
 
-
-
+    //wut
     private String id;
     private String customerType;
     private String assetType;
