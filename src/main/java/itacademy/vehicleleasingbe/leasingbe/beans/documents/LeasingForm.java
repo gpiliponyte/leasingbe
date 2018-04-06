@@ -66,23 +66,70 @@ public class LeasingForm {
     private String uniqueId;
     private Date date;
     private String applicationStatus;
-    private Payment[] payments;
-    private BigDecimal totalInterestAmount;
 
-    public BigDecimal getTotalInterestAmount() {
-        return totalInterestAmount;
+
+    public LeasingForm() {
     }
 
-    public void setTotalInterestAmount(BigDecimal totalInterestAmount) {
-        this.totalInterestAmount = totalInterestAmount;
-    }
+    ;//default constructor
 
-    public Payment[] getPayments() {
-        return payments;
-    }
-
-    public void setPayments(Payment[] payments) {
-        this.payments = payments;
+    public LeasingForm(String customerType,
+                       String assetType,
+                       String brand,
+                       String model,
+                       BigDecimal year,
+                       BigDecimal enginePower,
+                       BigDecimal assetPrice,
+                       BigDecimal advancePaymentPercentage,
+                       BigDecimal advancePaymentAmount,
+                       BigDecimal leasePeriod,
+                       BigDecimal margin,
+                       BigDecimal contractFee,
+                       String paymentDate,
+                       String email,
+                       String phoneNumber,
+                       String street,
+                       String city,
+                       String postCode,
+                       String country,
+                       String companyName,
+                       String companyCode,
+                       String firstName,
+                       String lastName,
+                       String personalCode,
+                       String uniqueId,
+                       Date date,
+                       String applicationStatus//,
+                       //Payment[] payments
+    ) {
+        this.customerType = customerType;
+        this.assetType = assetType;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.enginePower = enginePower;
+        this.assetPrice = assetPrice;
+        this.advancePaymentPercentage = advancePaymentPercentage;
+        this.advancePaymentAmount = advancePaymentAmount;
+        this.leasePeriod = leasePeriod;
+        this.margin = margin;
+        this.contractFee = contractFee;
+        this.paymentDate = paymentDate;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.street = street;
+        this.city = city;
+        this.postCode = postCode;
+        this.country = country;
+        this.companyName = companyName;
+        this.companyCode = companyCode;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personalCode = personalCode;
+        this.uniqueId = uniqueId;
+        this.date = date;
+        this.applicationStatus = applicationStatus;
+        //this.payments=null;
     }
 
     public Date getDate() {
