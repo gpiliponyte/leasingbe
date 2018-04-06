@@ -7,7 +7,7 @@ import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import itacademy.vehicleleasingbe.leasingbe.services.LeasingFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import itacademy.vehicleleasingbe.leasingbe.validations.CustomException;
+import itacademy.vehicleleasingbe.leasingbe.validations.FormValidationException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,7 +29,7 @@ public class LeasingFormController {
     }
 
     @RequestMapping(value = "/addLease", method = RequestMethod.POST)
-    public LeasingFormResponse addLease(@Valid @RequestBody LeasingForm leasingForm)throws CustomException {
+    public LeasingFormResponse addLease(@Valid @RequestBody LeasingForm leasingForm)throws FormValidationException {
         return new LeasingFormResponse(service.addNewLease(leasingForm));
     }
 
@@ -38,9 +38,9 @@ public class LeasingFormController {
        return new LeasingFormResponse(service.findLeaseByUniqueId(uniqueId));
     }
 
-    @RequestMapping(value = "/update/{uniqueId}", method = RequestMethod.PUT)
-    public LeasingFormResponse updateLease(@Valid @RequestBody String applicationStatus, @PathVariable("uniqueId") String uniqueId) {
-        return new LeasingFormResponse(service.updateLease(uniqueId, applicationStatus));
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public LeasingFormResponse updateLease(@Valid @RequestBody String applicationStatus, @PathVariable("id") String id) {
+        return new LeasingFormResponse(service.updateLease(id, applicationStatus));
     }
 
 //

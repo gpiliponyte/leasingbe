@@ -69,67 +69,37 @@ public class LeasingForm {
 
 
     public LeasingForm() {
-    }
+    }//default constructor
 
-    ;//default constructor
-
-    public LeasingForm(String customerType,
-                       String assetType,
-                       String brand,
-                       String model,
-                       BigDecimal year,
-                       BigDecimal enginePower,
-                       BigDecimal assetPrice,
-                       BigDecimal advancePaymentPercentage,
-                       BigDecimal advancePaymentAmount,
-                       BigDecimal leasePeriod,
-                       BigDecimal margin,
-                       BigDecimal contractFee,
-                       String paymentDate,
-                       String email,
-                       String phoneNumber,
-                       String street,
-                       String city,
-                       String postCode,
-                       String country,
-                       String companyName,
-                       String companyCode,
-                       String firstName,
-                       String lastName,
-                       String personalCode,
-                       String uniqueId,
-                       Date date,
-                       String applicationStatus//,
-                       //Payment[] payments
-    ) {
-        this.customerType = customerType;
-        this.assetType = assetType;
-        this.brand = brand;
-        this.model = model;
-        this.year = year;
-        this.enginePower = enginePower;
-        this.assetPrice = assetPrice;
-        this.advancePaymentPercentage = advancePaymentPercentage;
-        this.advancePaymentAmount = advancePaymentAmount;
-        this.leasePeriod = leasePeriod;
-        this.margin = margin;
-        this.contractFee = contractFee;
-        this.paymentDate = paymentDate;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.street = street;
-        this.city = city;
-        this.postCode = postCode;
-        this.country = country;
-        this.companyName = companyName;
-        this.companyCode = companyCode;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personalCode = personalCode;
-        this.uniqueId = uniqueId;
-        this.date = date;
-        this.applicationStatus = applicationStatus;
-        //this.payments=null;
+    public LeasingForm(LeasingForm leasingForm) {
+        //id
+        this.customerType = leasingForm.getCustomerType();
+        this.assetType = leasingForm.getAssetType();
+        this.brand = leasingForm.getBrand();
+        this.model = leasingForm.getModel();
+        this.year = leasingForm.getYear();
+        this.enginePower = leasingForm.getEnginePower();
+        this.assetPrice = leasingForm.getAssetPrice();
+        this.advancePaymentPercentage = leasingForm.getAdvancePaymentPercentage();
+        this.advancePaymentAmount = leasingForm.getAdvancePaymentAmount();
+        this.leasePeriod = leasingForm.getLeasePeriod();
+        this.margin = leasingForm.getMargin();
+        this.contractFee = leasingForm.getContractFee();
+        this.paymentDate = leasingForm.getPaymentDate();
+        this.email = leasingForm.getEmail();
+        this.phoneNumber = leasingForm.getPhoneNumber();
+        this.street = leasingForm.getStreet();
+        this.city = leasingForm.getCity();
+        this.postCode = leasingForm.getPostCode();
+        this.country = leasingForm.getCountry();
+        this.companyName = leasingForm.getCompanyName();
+        this.companyCode = leasingForm.getCompanyCode();
+        this.firstName = leasingForm.getFirstName();
+        this.lastName = leasingForm.getLastName();
+        this.personalCode = leasingForm.getPersonalCode();
+        this.uniqueId = leasingForm.getUniqueId();
+        this.date = leasingForm.getDate();
+        this.applicationStatus = leasingForm.getApplicationStatus();
     }
 
     public Date getDate() {

@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
         
         @ResponseStatus(value = HttpStatus.BAD_REQUEST)  // 400
-public class CustomException extends RuntimeException {
-    public CustomException(String message) {
+public class FormValidationException extends RuntimeException {
+    public FormValidationException(String message) {
                 super(message);
             }
 

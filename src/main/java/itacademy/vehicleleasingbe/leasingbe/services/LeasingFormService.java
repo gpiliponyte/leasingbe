@@ -4,12 +4,10 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.LeasingFormResponse;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
-import itacademy.vehicleleasingbe.leasingbe.util.CalculateMarginService;
-import itacademy.vehicleleasingbe.leasingbe.util.GenerateCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import itacademy.vehicleleasingbe.leasingbe.validations.CustomException;
+import itacademy.vehicleleasingbe.leasingbe.validations.FormValidationException;
 import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
@@ -34,95 +32,39 @@ public class LeasingFormService {
                 .collect(Collectors.toList());
     }
 
-    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws CustomException {
+    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws FormValidationException {
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
 
         FormValidation formValidation = new FormValidation();
         List<VehicleInfoResponse> vehicleInfos = vehicleInfoService.getAllVehicleInfo();
 
-        CustomException customException = formValidation.executeFormValidation(leasingForm, vehicleInfos);
-        if (customException != null) {
-            throw customException;
-        } else {
+        formValidation.executeFormValidation(leasingForm, vehicleInfos);
 
-            String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            calendar.add(Calendar.HOUR_OF_DAY, 3);
-
-            LeasingForm newLeasingForm = new LeasingForm(
-                    leasingForm.getCustomerType(),
-                    leasingForm.getAssetType(),
-                    leasingForm.getBrand(),
-                    leasingForm.getModel(),
-                    leasingForm.getYear(),
-                    leasingForm.getEnginePower(),
-                    leasingForm.getAssetPrice(),
-                    leasingForm.getAdvancePaymentPercentage(),
-                    leasingForm.getAdvancePaymentAmount(),
-                    leasingForm.getLeasePeriod(),
-                    leasingForm.getMargin(),
-                    leasingForm.getContractFee(),
-                    leasingForm.getPaymentDate(),
-                    leasingForm.getEmail(),
-                    leasingForm.getPhoneNumber(),
-                    leasingForm.getStreet(),
-                    leasingForm.getCity(),
-                    leasingForm.getPostCode(),
-                    leasingForm.getCountry(),
-                    leasingForm.getCompanyName(),
-                    leasingForm.getCompanyCode(),
-                    leasingForm.getFirstName(),
-                    leasingForm.getLastName(),
-                    leasingForm.getPersonalCode(),
-                    uniqueId,
-                    calendar.getTime(),
-                    "Application is being processed"
-            );
-            return leasingFormRepository.save(newLeasingForm);
-        }
-    }
-
-    public LeasingForm updateLease(String uniqueId, String newApplicationStatus) {
-
-        LeasingForm leasingForm = leasingFormRepository.findByUniqueId(uniqueId);
+        String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR_OF_DAY, 3);
 
-        LeasingForm newLeasingForm = new LeasingForm(
-                leasingForm.getCustomerType(),
-                leasingForm.getAssetType(),
-                leasingForm.getBrand(),
-                leasingForm.getModel(),
-                leasingForm.getYear(),
-                leasingForm.getEnginePower(),
-                leasingForm.getAssetPrice(),
-                leasingForm.getAdvancePaymentPercentage(),
-                leasingForm.getAdvancePaymentAmount(),
-                leasingForm.getLeasePeriod(),
-                leasingForm.getMargin(),
-                leasingForm.getContractFee(),
-                leasingForm.getPaymentDate(),
-                leasingForm.getEmail(),
-                leasingForm.getPhoneNumber(),
-                leasingForm.getStreet(),
-                leasingForm.getCity(),
-                leasingForm.getPostCode(),
-                leasingForm.getCountry(),
-                leasingForm.getCompanyName(),
-                leasingForm.getCompanyCode(),
-                leasingForm.getFirstName(),
-                leasingForm.getLastName(),
-                leasingForm.getPersonalCode(),
-                leasingForm.getUniqueId(),
-                calendar.getTime(),
-                newApplicationStatus
-        );
-        leasingFormRepository.deleteById(leasingForm.getId());
+        leasingForm.setUniqueId(uniqueId);
+        leasingForm.setDate(calendar.getTime());
+        leasingForm.setApplicationStatus("Application is being processed");
+
+        LeasingForm newLeasingForm = leasingForm;
         return leasingFormRepository.save(newLeasingForm);
+    }
+
+    public LeasingForm updateLease(String id, String newApplicationStatus) {
+
+        LeasingForm leasingForm = leasingFormRepository.findByUniqueId(id);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 3);
+
+        leasingForm.setDate(calendar.getTime());
+        leasingForm.setApplicationStatus(newApplicationStatus);
+        return leasingFormRepository.save(leasingForm);
     }
 
     public LeasingForm findLeaseByUniqueId(String uniqueId) {
