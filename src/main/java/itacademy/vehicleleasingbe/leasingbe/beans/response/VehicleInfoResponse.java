@@ -2,14 +2,15 @@ package itacademy.vehicleleasingbe.leasingbe.beans.response;
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.VehicleInfo;
 
-import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class VehicleInfoResponse extends Response {
+public class VehicleInfoResponse implements Serializable {
 
+    //Data already had entity names set
     private String id;
-    private String groupValue;
-    private String text;
-    private String value;
+    private String groupValue;//vehicle brand
+    private String text;//vehicle model
+    private String value;//vehicle model
 
     public VehicleInfoResponse(VehicleInfo vehicleInfo){
 

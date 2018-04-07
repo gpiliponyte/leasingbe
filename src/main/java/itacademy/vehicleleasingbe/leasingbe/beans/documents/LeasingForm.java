@@ -5,12 +5,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-import java.sql.Timestamp;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Document(collection = "posts")
+@Document(collection = "leasing-forms")
 public class LeasingForm {
 
 
@@ -56,16 +55,52 @@ public class LeasingForm {
     private String postCode;
     @NotNull
     private String country;
-    //Buisiness info
+    //Business info
     private String companyName;
     private String companyCode;
     //Personal Info
     private String firstName;
     private String lastName;
     private String personalCode;
+    //Other
     private String uniqueId;
     private Date date;
     private String applicationStatus;
+
+
+    public LeasingForm() {
+    }//default constructor
+
+    public LeasingForm(LeasingForm leasingForm) {
+        //id
+        this.customerType = leasingForm.getCustomerType();
+        this.assetType = leasingForm.getAssetType();
+        this.brand = leasingForm.getBrand();
+        this.model = leasingForm.getModel();
+        this.year = leasingForm.getYear();
+        this.enginePower = leasingForm.getEnginePower();
+        this.assetPrice = leasingForm.getAssetPrice();
+        this.advancePaymentPercentage = leasingForm.getAdvancePaymentPercentage();
+        this.advancePaymentAmount = leasingForm.getAdvancePaymentAmount();
+        this.leasePeriod = leasingForm.getLeasePeriod();
+        this.margin = leasingForm.getMargin();
+        this.contractFee = leasingForm.getContractFee();
+        this.paymentDate = leasingForm.getPaymentDate();
+        this.email = leasingForm.getEmail();
+        this.phoneNumber = leasingForm.getPhoneNumber();
+        this.street = leasingForm.getStreet();
+        this.city = leasingForm.getCity();
+        this.postCode = leasingForm.getPostCode();
+        this.country = leasingForm.getCountry();
+        this.companyName = leasingForm.getCompanyName();
+        this.companyCode = leasingForm.getCompanyCode();
+        this.firstName = leasingForm.getFirstName();
+        this.lastName = leasingForm.getLastName();
+        this.personalCode = leasingForm.getPersonalCode();
+        this.uniqueId = leasingForm.getUniqueId();
+        this.date = leasingForm.getDate();
+        this.applicationStatus = leasingForm.getApplicationStatus();
+    }
 
     public Date getDate() {
         return date;
@@ -127,8 +162,8 @@ public class LeasingForm {
         return enginePower;
     }
 
-    public void setEnginePower(BigDecimal enginerPower) {
-        this.enginePower = enginerPower;
+    public void setEnginePower(BigDecimal enginePower) {
+        this.enginePower = enginePower;
     }
 
     public BigDecimal getAssetPrice() {

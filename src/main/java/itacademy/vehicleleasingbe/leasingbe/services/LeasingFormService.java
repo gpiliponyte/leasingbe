@@ -2,12 +2,12 @@ package itacademy.vehicleleasingbe.leasingbe.services;
 
 
 import itacademy.vehicleleasingbe.leasingbe.beans.documents.LeasingForm;
-import itacademy.vehicleleasingbe.leasingbe.beans.response.PostLeasingForm;
+import itacademy.vehicleleasingbe.leasingbe.beans.response.LeasingFormResponse;
 import itacademy.vehicleleasingbe.leasingbe.repositories.LeasingFormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
-import itacademy.vehicleleasingbe.leasingbe.validations.CustomException;
+import itacademy.vehicleleasingbe.leasingbe.validations.FormValidationException;
 import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
@@ -26,120 +26,52 @@ public class LeasingFormService {
     private VehicleInfoService vehicleInfoService;
 
 
-    public List<PostLeasingForm> getAllLeases() {
+    public List<LeasingFormResponse> getAllLeases() {
         return leasingFormRepository.findAll().stream()
-                .map(PostLeasingForm::new)
+                .map(LeasingFormResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws CustomException {
-        LeasingForm newLeasingForm = new LeasingForm();
+    public LeasingForm addNewLease(@Valid LeasingForm leasingForm) throws FormValidationException {
         UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
-        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
         FormValidation formValidation = new FormValidation();
         List<VehicleInfoResponse> vehicleInfos = vehicleInfoService.getAllVehicleInfo();
 
-        CustomException customException = formValidation.executeFormValidation(leasingForm, vehicleInfos);
-        if (customException != null) {
-            throw customException;
-        } else {
+        formValidation.executeFormValidation(leasingForm, vehicleInfos);
 
+        String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
 
-            newLeasingForm.setCustomerType(leasingForm.getCustomerType());
-            newLeasingForm.setAssetType(leasingForm.getAssetType());
-            newLeasingForm.setBrand(leasingForm.getBrand());
-            newLeasingForm.setModel(leasingForm.getModel());
-            newLeasingForm.setYear(leasingForm.getYear());
-            newLeasingForm.setEnginePower(leasingForm.getEnginePower());
-            newLeasingForm.setAssetPrice(leasingForm.getAssetPrice());
-            newLeasingForm.setAdvancePaymentPercentage(leasingForm.getAdvancePaymentPercentage());
-            newLeasingForm.setAdvancePaymentAmount(leasingForm.getAdvancePaymentAmount());
-            newLeasingForm.setLeasePeriod(leasingForm.getLeasePeriod());
-            newLeasingForm.setMargin(calculateMarginService.calculateMargin());
-            newLeasingForm.setContractFee(leasingForm.getContractFee());
-            newLeasingForm.setPaymentDate(leasingForm.getPaymentDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 3);
 
-            newLeasingForm.setCompanyName(leasingForm.getCompanyName());
-            newLeasingForm.setCompanyCode(leasingForm.getCompanyCode());
-            newLeasingForm.setEmail(leasingForm.getEmail());
-            newLeasingForm.setPhoneNumber(leasingForm.getPhoneNumber());
+        leasingForm.setUniqueId(uniqueId);
+        leasingForm.setDate(calendar.getTime());
+        leasingForm.setApplicationStatus("Application is being processed");
 
-            newLeasingForm.setFirstName(leasingForm.getFirstName());
-            newLeasingForm.setLastName(leasingForm.getLastName());
-            newLeasingForm.setPersonalCode(leasingForm.getPersonalCode());
-
-            newLeasingForm.setStreet(leasingForm.getStreet());
-            newLeasingForm.setCity(leasingForm.getCity());
-            newLeasingForm.setPostCode(leasingForm.getPostCode());
-            newLeasingForm.setCountry(leasingForm.getCountry());
-
-            newLeasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-            newLeasingForm.setApplicationStatus(leasingForm.getApplicationStatus());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            calendar.add(Calendar.HOUR_OF_DAY, 3);
-            newLeasingForm.setDate(calendar.getTime());
-            //Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(System.currentTimeMillis()));
-//            Date date = new Date();
-//            newLeasingForm.setDate(new Timestamp(date.getTime()));
-
-            return leasingFormRepository.save(newLeasingForm);
-        }
+        LeasingForm newLeasingForm = leasingForm;
+        return leasingFormRepository.save(newLeasingForm);
     }
 
-    public LeasingForm updateBlogPost(String id, LeasingForm updateLeasingFormInfo) {
-        // steps:
-        // 1. get particular blog post
-        // 2. update blog post
-        // 3. save blog post
+
+    public LeasingForm updateLease(String id, String newApplicationStatus) {
+
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
-        UniqueIdGeneratorService uniqueIdGeneratorService = new UniqueIdGeneratorService();
-        CalculateMarginService calculateMarginService = new CalculateMarginService();
 
-        leasingForm.setCustomerType(updateLeasingFormInfo.getCustomerType());
-        leasingForm.setAssetType(updateLeasingFormInfo.getAssetType());
-        leasingForm.setBrand(updateLeasingFormInfo.getBrand());
-        leasingForm.setModel(updateLeasingFormInfo.getModel());
-        leasingForm.setYear(updateLeasingFormInfo.getYear());
-        leasingForm.setEnginePower(updateLeasingFormInfo.getEnginePower());
-        leasingForm.setAssetPrice(updateLeasingFormInfo.getAssetPrice());
-        leasingForm.setAdvancePaymentPercentage(updateLeasingFormInfo.getAdvancePaymentPercentage());
-        leasingForm.setAdvancePaymentAmount(updateLeasingFormInfo.getAdvancePaymentAmount());
-        leasingForm.setLeasePeriod(updateLeasingFormInfo.getLeasePeriod());
-        leasingForm.setMargin(calculateMarginService.calculateMargin());
-        leasingForm.setContractFee(updateLeasingFormInfo.getContractFee());
-        leasingForm.setPaymentDate(updateLeasingFormInfo.getPaymentDate());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 3);
 
-        leasingForm.setCompanyName(updateLeasingFormInfo.getCompanyName());
-        leasingForm.setCompanyCode(updateLeasingFormInfo.getCompanyCode());
-        leasingForm.setEmail(updateLeasingFormInfo.getEmail());
-        leasingForm.setPhoneNumber(updateLeasingFormInfo.getPhoneNumber());
-
-        leasingForm.setFirstName(updateLeasingFormInfo.getFirstName());
-        leasingForm.setLastName(updateLeasingFormInfo.getLastName());
-        leasingForm.setPersonalCode(updateLeasingFormInfo.getPersonalCode());
-        leasingForm.setPhoneNumber(updateLeasingFormInfo.getPhoneNumber());
-
-        leasingForm.setStreet(updateLeasingFormInfo.getStreet());
-        leasingForm.setCountry(updateLeasingFormInfo.getCountry());
-        leasingForm.setPostCode(updateLeasingFormInfo.getPostCode());
-        leasingForm.setCountry(updateLeasingFormInfo.getCountry());
-
-
-        leasingForm.setUniqueId(uniqueIdGeneratorService.generateUserId(leasingForm));
-        leasingForm.setApplicationStatus(updateLeasingFormInfo.getApplicationStatus());
-//        leasingForm.setDate(updateLeasingFormInfo.getDate());
-
-
-
+        leasingForm.setDate(calendar.getTime());
+        leasingForm.setApplicationStatus(newApplicationStatus);
         return leasingFormRepository.save(leasingForm);
     }
 
-    public LeasingForm findByUniqueId(String uniqueId) {
+    public LeasingForm findLeaseByUniqueId(String uniqueId) {
         return leasingFormRepository.findByUniqueId(uniqueId);
     }
+
     public List<LeasingForm> findAllByApplicationStatus(String applicationStatus) { return leasingFormRepository.findAllByApplicationStatus(applicationStatus); }
 
     public void deleteLeaseForm(String id) {

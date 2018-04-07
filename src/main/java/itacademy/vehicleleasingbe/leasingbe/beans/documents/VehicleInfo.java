@@ -11,11 +11,11 @@ public class VehicleInfo {
     @Id
     private String id;
     @NotNull
-    private String groupValue;
+    private String groupValue;//vehicle brand
     @NotNull
-    private String text;
+    private String text;//vehicle model
     @NotNull
-    private String value;
+    private String value;//vehicle model
 
     public String getId() {
         return id;
