@@ -12,5 +12,6 @@ public interface LeasingFormRepository extends CrudRepository<LeasingForm, Strin
     List<LeasingForm> findAll();
     LeasingForm findLeasingFormById(String id);
     LeasingForm findByUniqueId(String uniqueId);
+    List<LeasingForm> findAllByApplicationStatus(String applicationStatus);
 
 }

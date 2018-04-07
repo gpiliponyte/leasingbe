@@ -23,6 +23,7 @@ public class LeasingFormController {
     @Autowired
     private LeasingFormRepository leasingFormRepository;
 
+
     @RequestMapping(value = "/")
     public List<LeasingFormResponse> getAllLeases() {
         return service.getAllLeases();
@@ -43,9 +44,14 @@ public class LeasingFormController {
         return new LeasingFormResponse(service.updateLease(id, applicationStatus));
     }
 
-//
-//@RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
-//public void removePost(@PathVariable("id") String id) {
-//service.deleteLeaseForm(id);
-//}
+    @RequestMapping(value ="/leaseStatus/{applicationStatus}",method = RequestMethod.GET)
+    public List<LeasingForm> getAllLeasesByApplicationStatus(@PathVariable("applicationStatus") String applicationStatus) {
+        return service.findAllByApplicationStatus(applicationStatus);
+    }
+
+    @RequestMapping(value = "/deleteLease/{id}", method = RequestMethod.DELETE)
+    public void removePost(@PathVariable("id") String id) {
+        service.deleteLeaseForm(id);
+    }
+
 }

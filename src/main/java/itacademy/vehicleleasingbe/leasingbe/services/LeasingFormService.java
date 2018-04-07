@@ -54,6 +54,7 @@ public class LeasingFormService {
         return leasingFormRepository.save(newLeasingForm);
     }
 
+
     public LeasingForm updateLease(String id, String newApplicationStatus) {
 
         LeasingForm leasingForm = leasingFormRepository.findLeasingFormById(id);
@@ -70,8 +71,11 @@ public class LeasingFormService {
     public LeasingForm findLeaseByUniqueId(String uniqueId) {
         return leasingFormRepository.findByUniqueId(uniqueId);
     }
-//
-//public void deleteLeaseForm(String id) {
-//leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));
-//}
+
+    public List<LeasingForm> findAllByApplicationStatus(String applicationStatus) { return leasingFormRepository.findAllByApplicationStatus(applicationStatus); }
+
+    public void deleteLeaseForm(String id) {
+        leasingFormRepository.delete(leasingFormRepository.findLeasingFormById(id));
+    }
+
 }
