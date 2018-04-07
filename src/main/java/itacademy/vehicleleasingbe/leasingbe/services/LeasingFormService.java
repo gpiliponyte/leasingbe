@@ -48,7 +48,7 @@ public class LeasingFormService {
 
         leasingForm.setUniqueId(uniqueId);
         leasingForm.setDate(calendar.getTime());
-        leasingForm.setApplicationStatus('pending');
+        leasingForm.setApplicationStatus("pending");
 
         LeasingForm newLeasingForm = leasingForm;
         return leasingFormRepository.save(newLeasingForm);
