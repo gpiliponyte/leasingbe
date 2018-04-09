@@ -24,7 +24,7 @@ public class LeasingFormController {
     private LeasingFormRepository leasingFormRepository;
 
 
-    @RequestMapping(value = "/all")
+    @RequestMapping(value = "/")
     public List<LeasingFormResponse> getAllLeases() {
         return service.getAllLeases();
     }
