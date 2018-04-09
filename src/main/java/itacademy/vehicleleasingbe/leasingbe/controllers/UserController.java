@@ -26,6 +26,10 @@ public class UserController {
         return userService.save(user);
     }
 
+    @RequestMapping(value="/users/{id}", method = RequestMethod.GET)
+    public void deleteUser(@PathVariable("id") String id){
+        userService.deleteUser(id);
+    }
 
 
 }
