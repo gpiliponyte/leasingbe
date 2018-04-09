@@ -12,6 +12,8 @@ import itacademy.vehicleleasingbe.leasingbe.validations.FormValidation;
 import itacademy.vehicleleasingbe.leasingbe.beans.response.VehicleInfoResponse;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,13 +44,17 @@ public class LeasingFormService {
 
         String uniqueId = uniqueIdGeneratorService.generateUserId(leasingForm);
 
+        BigDecimal margin=new BigDecimal(4.27);
+        margin=margin.setScale(2,RoundingMode.HALF_UP);
+        leasingForm.setMargin(margin);
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR_OF_DAY, 3);
 
         leasingForm.setUniqueId(uniqueId);
         leasingForm.setDate(calendar.getTime());
-        leasingForm.setApplicationStatus(leasingForm.getApplicationStatus());
+        leasingForm.setApplicationStatus("pending");
 
         LeasingForm newLeasingForm = leasingForm;
         return leasingFormRepository.save(newLeasingForm);
