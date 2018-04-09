@@ -21,15 +21,10 @@ public class UserController {
     }
 
 
-    @RequestMapping(value="/signup", method = RequestMethod.POST)
-    public User saveUser(@RequestBody UserDto user){
-        return userService.save(user);
-    }
-
-    @RequestMapping(value="/users/{id}", method = RequestMethod.GET)
-    public void deleteUser(@PathVariable("id") String id){
-        userService.deleteUser(id);
-    }
+//    @RequestMapping(value="/signup", method = RequestMethod.POST)
+//    public User saveUser(@RequestBody UserDto user){
+//        return userService.save(user);
+//    }
 
 
 }
