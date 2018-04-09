@@ -217,7 +217,7 @@ public class FormValidation {
 
     //private
     private void validateFirstName(String firstName) {
-        if (firstName.matches("[a-zA-Z]+")) {
+        if (firstName.matches("[a-zA-ZĄČĘĖĮŠŲŪŽąčęėįšųūž\\s]+")) {
 
         } else
             throw new FormValidationException("Invalid First Name");
@@ -225,7 +225,7 @@ public class FormValidation {
     }
 
     private void validateLastName(String lastName) {
-        if (lastName.matches("[a-zA-ZąčęėįųūšžĄČĖĘĮŲŪČŠŽ ,.\\'-]+")) {
+        if (lastName.matches("[a-zA-ZąčęėįųūšžĄČĖĘĮŲŪČŠŽ\\s]+")) {
 
         } else
             throw new FormValidationException("Invalid Last Name");
