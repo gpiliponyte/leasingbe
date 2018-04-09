@@ -22,7 +22,7 @@ public class FormValidation {
         this.validateAdvancePaymentPercentage(leasingForm.getAssetPrice(), leasingForm.getAdvancePaymentPercentage(), leasingForm.getAdvancePaymentAmount());
         this.validateAdvancePaymentAmount(leasingForm.getAssetPrice(), leasingForm.getAdvancePaymentPercentage(), leasingForm.getAdvancePaymentAmount());
         this.validateLeasePeriod(leasingForm.getLeasePeriod());
-        this.validateMargin(leasingForm.getMargin());
+        //this.validateMargin(leasingForm.getMargin());
         this.validateContractFee(leasingForm.getAssetPrice(), leasingForm.getContractFee());
         this.validatePaymentDate(leasingForm.getPaymentDate());
         //Personal info
@@ -159,7 +159,7 @@ public class FormValidation {
         } else
             throw new FormValidationException("Invalid Lease Period");
     }
-
+/*
     private void validateMargin(BigDecimal margin) {
         BigDecimal smallestMargin = new BigDecimal(3.2);
         smallestMargin = smallestMargin.setScale(2, RoundingMode.FLOOR);
@@ -168,7 +168,7 @@ public class FormValidation {
         } else
             throw new FormValidationException("Invalid Margin");
     }
-
+*/
     private void validateContractFee(BigDecimal assetPrice, BigDecimal contractFee) {
         if (contractFee.scale() <= 2) {
             BigDecimal onePercentValue = assetPrice.divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
